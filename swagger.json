@@ -10,16 +10,19 @@
   },
   "externalDocs": { "description": "Find out more about Swagger", "url": "http://swagger.io" },
   "servers": [
-    { "url": "http://localhost:5000/api/" },
-    { "url": "https://api.ulusanelektrik.com/api/" }
+    { "url": "http://localhost:5000/api" },
+    { "url": "https://api.ulusanelektrik.com/api" }
   ],
   "tags": [
-    { "name": "Auth Controller", "description": "API authentications process for users" }
+    { "name": "Authentication", "description": "API authentications process for users" },
+    { "name": "Address", "description": "Addresses for the system" },
+    { "name": "Agreement",  "description": "User agreements for the system" },
+    { "name": "Blog", "description": "Blogs for the system" }
   ],
   "paths": {
     "/public/auth/login": {
       "post": {
-        "tags": [ "Auth Controller" ],
+        "tags": [ "Authentication" ],
         "summary": "Login process for the User in the system",
         "operationId": "loginUser",
         "requestBody": {
@@ -34,6 +37,424 @@
           "400": { "$ref": "#/components/responses/400" }
         }
       }
+    },
+    "/public/auth/register": {
+      "post": {
+        "tags": [ "Authentication" ],
+        "summary": "Add a new user to system",
+        "operationId": "addUser",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addUser" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addUser" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addUser" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/auth/register-verification": {
+      "post": {
+        "tags": [ "Authentication" ],
+        "summary": "Activate User in the system",
+        "operationId": "activateUser",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/activateUser" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/activateUser" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/activateUser" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/auth/password-reset": {
+      "post": {
+        "tags": [ "Authentication" ],
+        "summary": "User can be reset password using this api",
+        "operationId": "passwordResetUser",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/auth/password-reset-complete": {
+      "post": {
+        "tags": [ "Authentication" ],
+        "summary": "User can be reset password for using this api",
+        "operationId": "passwordResetCompleteUser",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/passwordResetCompleteUser" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/passwordResetCompleteUser" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/passwordResetCompleteUser" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+
+    "/public/address": {
+      "get": {
+        "tags": [ "Address" ],
+        "summary": "Get an address for session user from the system",
+        "operationId": "getAddressForUser",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "post": {
+        "tags": [ "Address" ],
+        "summary": "Add a new address to system",
+        "operationId": "addAddress",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addAddress" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addAddress" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addAddress" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/address/{addressId}": {
+      "get": {
+        "tags": [ "Address" ],
+        "summary": "Get an address from the system",
+        "operationId": "getAddress",
+        "parameters": [ { "in": "path", "name": "addressId", "required": true, "schema": { "type": "string" } } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "patch": {
+        "tags": [ "Address" ],
+        "summary": "Update an address from the system",
+        "operationId": "updateAddress",
+        "parameters": [ { "in": "path", "name": "addressId", "required": true, "schema": { "type": "string" } } ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/updateAddress" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/updateAddress" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateAddress" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Address" ],
+        "summary": "Delete an address in the system",
+        "operationId": "deleteAddress",
+        "parameters": [ { "in": "path", "name": "addressId", "required": true, "schema": { "type": "string" } } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/addresses": {
+      "get": {
+        "tags": [ "Address" ],
+        "summary": "Get all user addresses in the system",
+        "operationId": "getAddresses",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
+    "/public/agreements": {
+      "get": {
+        "tags": [ "Agreement" ],
+        "summary": "Get all user agreements in the system",
+        "operationId": "getAgreements",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean" }, "example": false }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/agreement/{locale}/{name}": {
+      "get": {
+        "tags": [ "Agreement" ],
+        "summary": "Get a agreement from the system",
+        "operationId": "getAgreement",
+        "parameters": [
+          { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } },
+          { "in": "path", "name": "name", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/agreements": {
+      "post": {
+        "tags": [ "Agreement" ],
+        "summary": "Add a new agreements to system (JSON or CSV)",
+        "operationId": "addAgreements",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/agreement" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/agreement" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/agreement" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/agreement": {
+      "post": {
+        "tags": [ "Agreement" ],
+        "summary": "Add a new agreement to system",
+        "operationId": "addAgreement",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addAgreements" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addAgreements" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addAgreements" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Agreement" ],
+        "summary": "Delete a agreement or agreements in the system",
+        "operationId": "deleteAgreements",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/agreement/{agreementId}": {
+      "patch": {
+        "tags": [ "Agreement" ],
+        "summary": "Update a agreement from the system",
+        "operationId": "updateAgreement",
+        "parameters": [ { "in": "path", "name": "agreementId", "required": true, "schema": { "type": "string" } } ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/updateAgreement" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/updateAgreement" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateAgreement" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
+    "/public/blogs": {
+      "get": {
+        "tags": [ "Blog" ],
+        "summary": "Get all blogs in the system",
+        "operationId": "getBlogs",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean" }, "example": false }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/blog/{blogId}": {
+      "get": {
+        "tags": [ "Blog" ],
+        "summary": "Get a blog from the system",
+        "operationId": "getBlog",
+        "parameters": [ { "in": "path", "name": "blogId", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/blog/{blogId}/like": {
+      "post": {
+        "tags": ["Blog"],
+        "summary": "Add a like or dislike to blog in the system",
+        "operationId": "likeBlogs",
+        "parameters": [ { "in": "path", "name": "blogId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/likeBlog" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/likeBlog" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/likeBlog" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/blog/{blogId}/comment": {
+      "post": {
+        "tags": ["Blog"],
+        "summary": "Add a comment to blog in the system",
+        "operationId": "commentBlogs",
+        "parameters": [ { "in": "path", "name": "blogId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/commentBlog" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/commentBlog" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/commentBlog" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/blogs": {
+      "post": {
+        "tags": [ "Blog" ],
+        "summary": "Add a new blogs to system (JSON or CSV)",
+        "operationId": "addBlogs",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addBlogs" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addBlogs" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addBlogs" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/blog": {
+      "post": {
+        "tags": [ "Blog" ],
+        "summary": "Add a new blog to system",
+        "operationId": "addBlog",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/blog" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/blog" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/blog" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Blog" ],
+        "summary": "Delete a blog or blogs in the system",
+        "description": "",
+        "operationId": "deleteBlogs",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/api/admin/blog/{blogId}": {
+      "patch": {
+        "tags": [ "Blog" ],
+        "summary": "Update a blog from the system",
+        "operationId": "updateBlog",
+        "parameters": [ { "in": "path", "name": "blogId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/blog" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/blog" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/blog" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
     }
   },
   "components": {
@@ -44,12 +465,111 @@
       "500": { "description": "NETWORK_ERROR" }
     },
     "schemas": {
+      "activateUser": {
+        "type": "object",
+        "required": [ "key" ],
+        "properties": {
+          "key": { "type": "string" }
+        }
+      },
+      "addAddress": {
+        "type": "object",
+        "required": [ "title", "name", "surname", "line", "country", "city", "district" ],
+        "properties": {
+          "title": { "type": "string", "example": "EV BOGAZKENT" },
+          "name": { "type": "string", "example": "Fatma" },
+          "surname": { "type": "string", "example": "Gür" },
+          "country": { "type": "string", "example": "Turkey" },
+          "city": { "type": "string", "example": "Antalya" },
+          "district": { "type": "string", "example": "Serik" },
+          "zipCode": { "type": "string", "example": "07500" },
+          "line": { "type": "string", "example": "Boğazkent mahallesi İstiklal caddesi D Kümeevleri No:13" }
+        }
+      },
+      "addAgreements": { "type": "array", "items": { "$ref": "#/components/schemas/agreement" } },
+      "addBlogs": { "type": "array", "items": { "$ref": "#/components/schemas/blog" } },
+      "addUser": {
+        "type": "object",
+        "required": [ "name", "email", "phoneNumber", "password" ],
+        "properties": {
+          "name": { "type": "string", "example": "Barış" },
+          "surname": { "type": "string", "example": "Gür" },
+          "email": { "type": "string", "example": "ua_baris_07@hotmail.com" },
+          "phoneNumber": { "type": "string", "example": "905365056943" },
+          "password": { "type": "string", "example": "Passw0rd" }
+        }
+      },
+      "agreement": {
+        "type": "object",
+        "required": [ "locale", "name", "content" ],
+        "properties": {
+          "locale": { "type": "string", "example": "en" },
+          "name": { "type": "string", "example": "Test" },
+          "content": { "type": "string", "example": "<p>Test</p>" }
+        }
+      },
+      "blog": {
+        "type": "object",
+        "required": [ "name", "content" ],
+        "properties": {
+          "name": { "type": "string", "example": "Ticaret ve E-ticaret Kavramları" },
+          "content": { "type": "string", "example": "<p><b>Merhaba</b> bu bir test yazisidir.</p>" }
+        }
+      },
+      "commentBlog": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "text": { "type": "string" }
+        }
+      },
+      "deleteModel": {
+        "type": "object",
+        "required": [ "selectedIds" ],
+        "properties": {
+          "selectedIds": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "likeBlog": {
+        "type": "object",
+        "properties": {
+          "vote": { "type": "boolean" }
+        }
+      },
       "loginUser": {
         "type": "object",
         "required": [ "email", "password" ],
         "properties": {
           "email": { "type": "string" },
           "password": { "type": "string" }
+        }
+      },
+      "passwordResetCompleteUser": {
+        "type": "object",
+        "required": [ "email", "key", "newPassword" ],
+        "properties": {
+          "email": { "type": "string" },
+          "key": { "type": "string" },
+          "newPassword": { "type": "string" }
+        }
+      },
+      "passwordResetUser": {
+        "type": "object",
+        "required": [ "email" ],
+        "properties": {
+          "email": { "type": "string" }
+        }
+      },
+      "updateAddress": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "Durali" }
+        }
+      },
+      "updateAgreement": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "web" }
         }
       }
     },
