@@ -1,0 +1,60 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SS-E-commerce - API - OpenAPI 3.0",
+    "description": "",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": { "email": "admin@ssyazilim.com" },
+    "license": { "name": "MIT", "url": "https://opensource.org/licenses/MIT" },
+    "version": "1.0.11"
+  },
+  "externalDocs": { "description": "Find out more about Swagger", "url": "http://swagger.io" },
+  "servers": [
+    { "url": "http://localhost:5000/api/" },
+    { "url": "https://api.ulusanelektrik.com/api/" }
+  ],
+  "tags": [
+    { "name": "Auth Controller", "description": "API authentications process for users" }
+  ],
+  "paths": {
+    "/public/auth/login": {
+      "post": {
+        "tags": [ "Auth Controller" ],
+        "summary": "Login process for the User in the system",
+        "operationId": "loginUser",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/loginUser" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/loginUser" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/loginUser" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "200": { "description": "OK" },
+      "400": { "description": "BAD_REQUEST" },
+      "401": { "description": "UNAUTHORIZED" },
+      "500": { "description": "NETWORK_ERROR" }
+    },
+    "schemas": {
+      "loginUser": {
+        "type": "object",
+        "required": [ "email", "password" ],
+        "properties": {
+          "email": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWT": { "type": "apiKey", "name": "Authorization", "in": "header" }
+    }
+  }
+}
