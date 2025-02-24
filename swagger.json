@@ -206,9 +206,9 @@
         "summary": "Get all user addresses in the system",
         "operationId": "getAddresses",
         "parameters": [
-          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
-          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
         ],
         "responses": {
@@ -225,11 +225,11 @@
         "summary": "Get all user agreements in the system",
         "operationId": "getAgreements",
         "parameters": [
-          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
-          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
-          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean" }, "example": false }
+          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean", "example": false } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
@@ -334,11 +334,11 @@
         "summary": "Get all blogs in the system",
         "operationId": "getBlogs",
         "parameters": [
-          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
-          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
-          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean" }, "example": false }
+          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean", "example": false } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
@@ -481,9 +481,9 @@
         "summary": "Get all brands in the system",
         "operationId": "getBrands",
         "parameters": [
-          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
-          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
         ],
         "responses": {
@@ -716,11 +716,11 @@
         "summary": "Get all carts in the system",
         "operationId": "getCarts",
         "parameters": [
-          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
-          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
-          { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string" }, "example": "2024-12-15T00:00:00.000Z" },
-          { "in": "query", "name": "endDate", "required": false, "schema": { "type": "boolean" }, "example": "2024-12-15T23:59:59.999Z" }
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T00:00:00.000Z" } },
+          { "in": "query", "name": "endDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T23:59:59.999Z" } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
@@ -749,9 +749,9 @@
         "summary": "Get all categories in the system",
         "operationId": "getCategories",
         "parameters": [
-          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
-          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
         ],
         "responses": {
@@ -1081,7 +1081,7 @@
     },
     "/public/filter/category/{categoryId}": {
       "get": {
-        "tags": [ "FILTER-CONTROLLER" ],
+        "tags": [ "Filter" ],
         "summary": "Get filters by categoryId in the system",
         "operationId": "getFiltersByCategoryId",
         "parameters": [ { "in": "path", "name": "categoryId", "required": true, "schema": { "type": "string" } }],
@@ -1199,8 +1199,8 @@
         "parameters": [
           { "in": "query", "name": "dimension", "required": true, "schema": { "type": "string", "example": "country" } },
           { "in": "query", "name": "metric", "required": true, "schema": { "type": "string", "example": "activeUsers" } },
-          { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string" }, "example": "2024-12-15T00:00:00.000Z" },
-          { "in": "query", "name": "endDate", "required": false, "schema": { "type": "boolean" }, "example": "2024-12-15T23:59:59.999Z" }
+          { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T00:00:00.000Z" } },
+          { "in": "query", "name": "endDate", "required": false, "schema": { "type": "boolean", "example": "2024-12-15T23:59:59.999Z" } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
@@ -1210,7 +1210,7 @@
       }
     },
 
-    "/api/public/payment": {
+    "/public/payment": {
       "get": {
         "tags": [ "Payment" ],
         "summary": "Get User payment in system",
@@ -1239,6 +1239,358 @@
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
         }
+      }
+    },
+    "/public/payment/{locale}": {
+      "post": {
+        "tags": [ "Payment" ],
+        "summary": "Add payment to the IYZICO Service",
+        "operationId": "paymentForUser",
+        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addPayment" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addPayment" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addPayment" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/payment/3D/{locale}": {
+      "post": {
+        "tags": [ "Payment" ],
+        "summary": "Check HTML Code for the 3D Service",
+        "operationId": "check3DForUser",
+        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addPayment" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addPayment" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addPayment" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/payment/3D/{paymentId}/{locale}": {
+      "post": {
+        "tags": [ "Payment" ],
+        "summary": "Complete payment for 3D Service",
+        "operationId": "completePayment3DForIyzico",
+        "parameters": [
+          { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } },
+          { "in": "path", "name": "paymentId", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/completePayment3D" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/completePayment3D" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/completePayment3D" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/payment/check/card": {
+      "post": {
+        "tags": [ "Payment" ],
+        "summary": "Check card from IYZICO system",
+        "operationId": "checkCard",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addCard" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addCard" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addCard" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/payment/check/installment": {
+      "post": {
+        "tags": [ "Payment" ],
+        "summary": "Check installment for the IYZICO Service",
+        "operationId": "installmentForUser",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/checkInstallment" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/checkInstallment" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/checkInstallment" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/payment/cancel/{locale}": {
+      "post": {
+        "tags": [ "Payment" ],
+        "summary": "Cancel payment for the suddenly payment",
+        "operationId": "cancelPayment",
+        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/cancelPayment" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/cancelPayment" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/cancelPayment" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/payments": {
+      "get": {
+        "tags": [ "Payment" ],
+        "summary": "Get all payments in the system",
+        "operationId": "getPaymentsAdmin",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T00:00:00.000Z" } },
+          { "in": "query", "name": "endDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T23:59:59.999Z" } },
+          { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "example": "pending" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Payment" ],
+        "summary": "Delete a payment or payments in the system",
+        "description": "",
+        "operationId": "deletePayments",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
+    "/public/products": {
+      "get": {
+        "tags": [ "Product" ],
+        "summary": "Get all products in the system",
+        "operationId": "getProducts",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "category", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "filters", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/items/best-seller": {
+      "get": {
+        "tags": [ "Product" ],
+        "summary": "Get all best products and variants in the system",
+        "operationId": "getItems",
+        "parameters": [ { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/products/XML": {
+      "get": {
+        "tags": [ "Product" ],
+        "summary": "Get all products in the system with XML format",
+        "operationId": "getProductsXML",
+        "parameters": [],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/product/{productId}": {
+      "get": {
+        "tags": [ "Product" ],
+        "summary": "Get a product from the system",
+        "operationId": "getProduct",
+        "parameters": [ { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/product/addTempImage": {
+      "post": {
+        "tags": [ "Product" ],
+        "summary": "Provides the FE side with a temporary endpoint for image preview",
+        "operationId": "previewImage",
+        "requestBody": {
+          "content": { "multipart/form-data": { "schema": { "$ref": "#/components/schemas/image" } } }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/product/removeTempImage/{imageName}": {
+      "delete": {
+        "tags": [ "Product" ],
+        "summary": "Delete a removed Image from dummy image data for BE Side",
+        "operationId": "deleteImage",
+        "parameters": [ { "in": "path", "name": "imageName", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/products/count": {
+      "get": {
+        "tags": [ "Product" ],
+        "summary": "Check product and variant count in the system",
+        "operationId": "countProducts",
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/products": {
+      "post": {
+        "tags": [ "Product" ],
+        "summary": "Add a new products to the system",
+        "operationId": "addProducts",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addProducts" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addProducts" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addProducts" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/product": {
+      "post": {
+        "tags": [ "Product" ],
+        "summary": "Add a new product to system",
+        "operationId": "addProduct",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/product" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/product" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/product" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Product" ],
+        "summary": "Delete a product or products in the system",
+        "description": "",
+        "operationId": "deleteProduct",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/product/{productId}": {
+      "patch": {
+        "tags": [ "Product" ],
+        "summary": "Update a product in the system",
+        "operationId": "updateProduct",
+        "parameters": [ { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/editProduct" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/editProduct" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/editProduct" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/product/removeProductImage/{productId}": {
+      "delete": {
+        "tags": [ "Product" ],
+        "summary": "Delete a image from product images for BE Side",
+        "operationId": "deleteProductImage",
+        "parameters": [ { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/removeProductImage" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/removeProductImage" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/removeProductImage" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
       }
     }
   },
@@ -1293,15 +1645,6 @@
         }
       },
       "addCategory": { "type": "array", "items": { "$ref": "#/components/schemas/category" } },
-      "addFilter": {
-        "type": "object",
-        "required": [ "name" ],
-        "properties": {
-          "name": { "type": "string" },
-          "options": { "type": "array" },
-          "active": { "type": "boolean" }
-        }
-      },
       "addCompany": {
         "type": "object",
         "required": [ "name", "address" ],
@@ -1314,6 +1657,46 @@
           "socialMedia": { "type": "array", "items": { "$ref": "#/components/schemas/companySocialMedia" } },
           "payments": { "type": "array", "items": { "$ref": "#/components/schemas/companyPayment" } },
           "properties": { "$ref": "#/components/schemas/companyProperties" }
+        }
+      },
+      "addFilter": {
+        "type": "object",
+        "required": [ "name" ],
+        "properties": {
+          "name": { "type": "string" },
+          "options": { "type": "array" },
+          "active": { "type": "boolean" }
+        }
+      },
+      "addPayment": {
+        "type": "object",
+        "required": [ "paymentCard", "buyer", "shippingAddress", "billingAddress", "basketItems" ],
+        "properties": {
+          "paymentCard": { "$ref": "#/components/schemas/paymentCard" },
+          "buyer": { "$ref": "#/components/schemas/buyer" },
+          "shippingAddress": { "$ref": "#/components/schemas/shippingAddress" },
+          "billingAddress": { "$ref": "#/components/schemas/billingAddress" },
+          "basketItems": { "$ref": "#/components/schemas/basketItems" },
+          "shipment": { "$ref": "#/components/schemas/shipment" }
+        }
+      },
+      "addProducts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [ "variants", "variantsType" ],
+          "allOf": [ { "$ref": "#/components/schemas/product" } ],
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "66f29aefff9245b28d05482e"
+            },
+            "variantsType": { "$ref": "#/components/schemas/variantsType" },
+            "variants": {
+              "type": "array",
+              "example": ["66f29aefff9245b28d05482c", "66f29aefff9245b28d05482d"]
+            }
+          }
         }
       },
       "addToCart": {
@@ -1401,6 +1784,13 @@
           "name": { "type": "string" }
         }
       },
+      "cancelPayment": {
+        "type": "object",
+        "required": [ "paymentId" ],
+        "properties": {
+          "paymentId": { "type": "string" }
+        }
+      },
       "category": {
         "type": "object",
         "required": [ "name", "parent", "tree" ],
@@ -1408,6 +1798,14 @@
           "name": { "type": "string" },
           "parent": { "type": "string" },
           "tree": { "type": "array", "example": [ "root" ], "items": { "type": "string" } }
+        }
+      },
+      "checkInstallment": {
+        "type": "object",
+        "required": [ "binNumber", "price" ],
+        "properties": {
+          "binNumber": { "type": "string", "example": "531157" },
+          "price": { "type": "string", "example": "2500" }
         }
       },
       "commentBlog": {
@@ -1461,6 +1859,14 @@
           "cashDiscount": { "type": "string", "example": "0" }
         }
       },
+      "completePayment3D": {
+        "type": "object",
+        "required": [ "conversationId", "conversationData" ],
+        "properties": {
+          "conversationId": { "type": "string", "example": "e1e4b5c04f3a4b6a9d8ca0a6f3e3f4a1" },
+          "conversationData": { "type": "string", "example": "" }
+        }
+      },
       "contactMe": {
         "type": "object",
         "required": [ "firstName", "email", "phoneNumber", "message", "agreed" ],
@@ -1501,6 +1907,12 @@
           "selectedIds": { "type": "array", "items": { "type": "string" } }
         }
       },
+      "editProduct": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "example": "Grundig Gpdh 9634 A++ Enerji Sınıfı 9 kg Isı Pompa" }
+        }
+      },
       "file": {
         "type": "object",
         "properties": {
@@ -1511,6 +1923,13 @@
         "type": "object",
         "properties": {
           "image": { "type": "string", "format": "binary" }
+        }
+      },
+      "images": {
+        "type": "object",
+        "properties": {
+          "staticImages": { "type": "array", "example": [] },
+          "dynamicImages": { "type": "string", "example": "https://placehold.co/600x400/000000/FFF?text=Image+1,\\nhttps://placehold.co/600x400/000000/FFF?text=Image+2" }
         }
       },
       "likeBlog": {
@@ -1553,6 +1972,63 @@
         "required": [ "email" ],
         "properties": {
           "email": { "type": "string" }
+        }
+      },
+      "paymentCard": {
+        "type": "object",
+        "required": [ "name", "surname", "cardNumber", "expireMonth", "expireYear", "cvc", "installment", "registerCard" ],
+        "properties": {
+          "name": { "type": "string", "example": "ALI" },
+          "surname": { "type": "string", "example": "SARI" },
+          "cardNumber": { "type": "string", "example": "5890040000000016" },
+          "expireMonth": { "type": "string", "example": "11" },
+          "expireYear": { "type": "string", "example": "2026" },
+          "cvc": { "type": "string", "example": "704" },
+          "installment": { "type": "number", "example": 1 },
+          "registerCard": { "type": "number", "example": 0 }
+        }
+      },
+      "price": {
+        "type": "object",
+        "required": [ "currency", "purchase", "sell", "discount" ],
+        "properties": {
+          "currency": { "type": "string", "example": "TRY" },
+          "purchase": { "type": "number", "example": 1000 },
+          "sell": { "type": "number", "example": 1500 },
+          "discount": { "type": "number", "example": 10 }
+        }
+      },
+      "product": {
+        "type": "object",
+        "required": [ "title", "images", "price", "stockQuantity", "sku", "desi", "brand", "category", "categoryTree", "properties" ],
+        "properties": {
+          "title": { "type": "string", "example": "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+          "description": { "type": "string", "example": "Lorem ipsum dolor sit amet" },
+          "images": { "$ref": "#/components/schemas/images" },
+          "price": { "$ref": "#/components/schemas/price" },
+          "stockQuantity": { "type": "number", "example": 100 },
+          "desi": { "type": "number", "example": 2 },
+          "brand": { "type": "string", "example": "Test" },
+          "gtin": { "type": "string", "example": "0123456789012" },
+          "sku": { "type": "string", "example": "0123456" },
+          "category": { "type": "string", "example": "Test" },
+          "categoryTree": { "type": "array", "example": [ "root", "Test" ], "items": { "type": "string" } },
+          "categoryI10n": { "type": "string", "example": "5608" },
+          "properties": { "$ref": "#/components/schemas/productProperties" }
+        }
+      },
+      "productProperties": {
+        "type": "object",
+        "properties": {
+          "hidePrice": { "type": "boolean", "example": false },
+          "isFeatured": { "type": "boolean", "example": false }
+        }
+      },
+      "removeProductImage": {
+        "type": "object",
+        "required": [ "imageName" ],
+        "properties": {
+          "name": { "type": "string", "example": "image_1712064226462-926571863.png" }
         }
       },
       "savePayment": {
@@ -1626,6 +2102,17 @@
               "isCompany": { "type": "boolean", "example": false },
               "name": { "type": "string", "example": "AYSE" }
             }
+          }
+        }
+      },
+      "variantsType": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [ "name", "variants" ],
+          "properties": {
+            "name": { "type": "string", "example": "Renk" },
+            "variants": { "type": "array", "example": [ "Siyah" ], "items": { "type": "string" } }
           }
         }
       }
