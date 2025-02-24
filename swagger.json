@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "SS-E-commerce - API - OpenAPI 3.0",
+    "title": "SS-Ecommerce - API - OpenAPI 3.0",
     "description": "",
     "termsOfService": "https://swagger.io/terms/",
     "contact": { "email": "admin@ssyazilim.com" },
@@ -1592,6 +1592,804 @@
         },
         "security": [ { "JWT": [] } ]
       }
+    },
+
+    "/public/products/variants": {
+      "get": {
+        "tags": [ "Product Variant" ],
+        "summary": "Get all variants in the system",
+        "operationId": "getVariants",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/product/variants/{productId}": {
+      "get": {
+        "tags": [ "Product Variant" ],
+        "summary": "Get a product variants from the system",
+        "operationId": "getProductVariants",
+        "parameters": [ { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/product/variants": {
+      "post": {
+        "tags": [ "Product Variant" ],
+        "summary": "Add a new variants to system",
+        "operationId": "addVariantsMulti",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addVariantsMulti" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addVariantsMulti" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addVariantsMulti" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Product Variant" ],
+        "summary": "Delete a variant or variants in the system",
+        "operationId": "deleteVariant",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteForVariant" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteForVariant" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteForVariant" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/product/variant/{productId}": {
+      "post": {
+        "tags": [ "Product Variant" ],
+        "summary": "Add a new variant or variants to system",
+        "operationId": "addVariant",
+        "parameters": [ { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addVariant" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addVariant" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addVariant" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "patch": {
+        "tags": [ "Product Variant" ],
+        "summary": "Update a variant in the system",
+        "operationId": "updateVariant",
+        "parameters": [ { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/updateVariant" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/updateVariant" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateVariant" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
+    "/public/questions/{productId}": {
+      "get": {
+        "tags": [ "Question" ],
+        "summary": "Get all questions for the product",
+        "operationId": "getQuestionsForProduct",
+        "parameters": [
+          { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } },
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/questions": {
+      "get": {
+        "tags": [ "Question" ],
+        "summary": "Get user questions in the system",
+        "operationId": "getQuestions",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } }
+        ],
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/question/{productId}": {
+      "post": {
+        "tags": [ "Question" ],
+        "summary": "Add a new question for the product",
+        "operationId": "addQuestion",
+        "parameters": [ { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addQuestion" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addQuestion" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addQuestion" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/question/{questionId}": {
+      "patch": {
+        "tags": [ "Question" ],
+        "summary": "Update a question for the product",
+        "operationId": "updateQuestion",
+        "parameters": [ { "in": "path", "name": "questionId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addQuestion" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addQuestion" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addQuestion" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      },
+      "delete": {
+        "tags": [ "Question" ],
+        "summary": "Delete a review or reviews in the system",
+        "description": "",
+        "operationId": "deleteQuestion",
+        "parameters": [ { "in": "path", "name": "questionId", "required": true, "schema": { "type": "string" } }],
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/questions": {
+      "get": {
+        "tags": [ "Question" ],
+        "summary": "Get all questions in the system",
+        "operationId": "getQuestionsAdmin",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } },
+          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean", "example": false } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/question/{userId}/{productId}": {
+      "post": {
+        "tags": [ "Question" ],
+        "summary": "Add a new admin question for the product",
+        "operationId": "addQuestionAdmin",
+        "parameters": [
+          { "in": "path", "name": "userId", "required": true, "schema": { "type": "string" } },
+          { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/updateQuestion" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/updateQuestion" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateQuestion" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/question/{questionId}": {
+      "patch": {
+        "tags": [ "Question" ],
+        "summary": "Update a question for the product",
+        "operationId": "updateQuestionAdmin",
+        "parameters": [ { "in": "path", "name": "questionId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/updateQuestion" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/updateQuestion" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateQuestion" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/question": {
+      "delete": {
+        "tags": [ "Question" ],
+        "summary": "Delete a question from the system",
+        "operationId": "deleteQuestionsAdmin",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+
+    "/public/reviews/{productId}": {
+      "get": {
+        "tags": [ "Review" ],
+        "summary": "Get all reviews for the product",
+        "operationId": "getReviewsForProduct",
+        "parameters": [
+          { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } },
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
+
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/reviews": {
+      "get": {
+        "tags": [ "Review" ],
+        "summary": "Get user reviews in the system",
+        "operationId": "getReviews",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } }
+        ],
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/review/{productId}": {
+      "post": {
+        "tags": [ "Review" ],
+        "summary": "Add a new review for the product",
+        "operationId": "addReview",
+        "parameters": [ { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addReview" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addReview" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addReview" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/review/{reviewId}": {
+      "patch": {
+        "tags": [ "Review" ],
+        "summary": "Update a review for the product",
+        "operationId": "updateReview",
+        "parameters": [ { "in": "path", "name": "reviewId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addReview" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addReview" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addReview" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      },
+      "delete": {
+        "tags": [ "Review" ],
+        "summary": "Delete a review or reviews in the system",
+        "description": "",
+        "operationId": "deleteReview",
+        "parameters": [ { "in": "path", "name": "reviewId", "required": true, "schema": { "type": "string" } }],
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/reviews": {
+      "get": {
+        "tags": [ "Review" ],
+        "summary": "Get all reviews in the system",
+        "operationId": "getReviewsAdmin",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } },
+          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean", "example": false } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/review/{userId}/{productId}": {
+      "post": {
+        "tags": [ "Review" ],
+        "summary": "Add a new admin review for the product",
+        "operationId": "addReviewAdmin",
+        "parameters": [
+          { "in": "path", "name": "userId", "required": true, "schema": { "type": "string" } },
+          { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addReview" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addReview" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addReview" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/review/{reviewId}": {
+      "patch": {
+        "tags": [ "Review" ],
+        "summary": "Update a review for the product",
+        "operationId": "updateReviewAdmin",
+        "parameters": [ { "in": "path", "name": "reviewId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addReview" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addReview" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addReview" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/review": {
+      "delete": {
+        "tags": [ "Review" ],
+        "summary": "Delete a reviews from the system",
+        "operationId": "deleteReviewsAdmin",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+
+    "/public/shipping": {
+      "get": {
+        "tags": [ "Shipping" ],
+        "summary": "Get all shipping dealers in the system",
+        "operationId": "getShippingDealers",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/shipping/check-with-desi/{desi}": {
+      "get": {
+        "tags": [ "Shipping" ],
+        "summary": "Get shipping prices from dealers with desi information",
+        "operationId": "getPriceWithDesi",
+        "parameters": [ { "in": "path", "name": "desi", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/shipping/check-with-size": {
+      "post": {
+        "tags": [ "Shipping" ],
+        "summary": "Check shipping price from dealers",
+        "operationId": "getPriceWithSize",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/checkShippingPrice" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/checkShippingPrice" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/checkShippingPrice" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/shipping/add-package-info": {
+      "post": {
+        "tags": [ "Shipping" ],
+        "summary": "Add package information",
+        "operationId": "addPackageInformation",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addPackage" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addPackage" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addPackage" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/shipping/add-package-info-with-dealer": {
+      "post": {
+        "tags": [ "Shipping" ],
+        "summary": "Add package information and dealer name",
+        "operationId": "addPackageInformationWithDealer",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addPackageInfoWithDealer" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addPackageInfoWithDealer" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addPackageInfoWithDealer" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
+    "/public/translation/{locale}/{name}": {
+      "get": {
+        "tags": [ "Translation" ],
+        "summary": "Get a translation from the system",
+        "operationId": "getTranslation",
+        "parameters": [
+          { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr", "enum": ["en", "tr"] } },
+          { "in": "path", "name": "name", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/translations": {
+      "get": {
+        "tags": [ "Translation" ],
+        "summary": "Get all translations in the system",
+        "operationId": "getTranslations",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean", "example": false } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "post": {
+        "tags": [ "Translation" ],
+        "summary": "Add a new translations to system (JSON or CSV)",
+        "description": "",
+        "operationId": "addTranslations",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addTranslations" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addTranslations" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addTranslations" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/translation": {
+      "post": {
+        "tags": [ "Translation" ],
+        "summary": "Add a new translation to system",
+        "operationId": "addTranslation",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/translation" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/translation" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/translation" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Translation" ],
+        "summary": "Delete a translation or translations in the system",
+        "description": "",
+        "operationId": "deleteTranslations",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/translation/{translationId}": {
+      "patch": {
+        "tags": [ "Translation" ],
+        "summary": "Update a translation from the system",
+        "operationId": "updateTranslation",
+        "parameters": [ { "in": "path", "name": "translationId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/updateTranslation" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/updateTranslation" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateTranslation" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
+    "/public/user/{userId}": {
+      "get": {
+        "tags": [ "User" ],
+        "summary": "Get a User in the system",
+        "operationId": "getUser",
+        "parameters": [ { "in": "path", "name": "userId", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/user": {
+      "patch": {
+        "tags": [ "User" ],
+        "summary": "User can edit information from the system",
+        "operationId": "editUser",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/editUser" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/editUser" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/editUser" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "User" ],
+        "summary": "User can delete yourself from the system",
+        "description": "",
+        "operationId": "deleteUser",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteUser" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteUser" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteUser" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/user/update-profile-image": {
+      "post": {
+        "tags": [ "User" ],
+        "summary": "User can be update profile image using this api",
+        "operationId": "updateProfileImage",
+        "requestBody": {
+          "content": { "multipart/form-data": { "schema": { "$ref": "#/components/schemas/image" } } }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "tags": [ "User" ],
+        "summary": "Get all users in system",
+        "operationId": "getUsers",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "post": {
+        "tags": [ "User" ],
+        "summary": "Add a new customers to the system (JSON or CSV)",
+        "description": "",
+        "operationId": "addCustomers",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addCustomers" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addCustomers" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addCustomers" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/user": {
+      "post": {
+        "tags": [ "User" ],
+        "summary": "Add a customer to the system",
+        "operationId": "addCustomer",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/customer" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/customer" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/customer" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "User" ],
+        "summary": "Delete a customer from the system",
+        "description": "",
+        "operationId": "deleteCustomer",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/user/{userId}": {
+      "patch": {
+        "tags": [ "User" ],
+        "summary": "Update a customer from the system",
+        "operationId": "updateCustomer",
+        "parameters": [ { "in": "path", "name": "userId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/updateCustomer" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/updateCustomer" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateCustomer" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
     }
   },
   "components": {
@@ -1659,6 +2457,7 @@
           "properties": { "$ref": "#/components/schemas/companyProperties" }
         }
       },
+      "addCustomers": { "type": "array", "items": { "$ref": "#/components/schemas/customer" } },
       "addFilter": {
         "type": "object",
         "required": [ "name" ],
@@ -1666,6 +2465,31 @@
           "name": { "type": "string" },
           "options": { "type": "array" },
           "active": { "type": "boolean" }
+        }
+      },
+      "addPackage": {
+        "type": "object",
+        "required": [ "content", "client", "collect" ],
+        "properties": {
+          "content": {
+            "type": "object",
+            "required": [ "name", "code", "packages" ],
+            "properties": {
+              "name": { "type": "string", "example": "Heider XR-18650 Pro Original 3000MAH 3,7V High Drain Li-Mn Şarjlı Pil - Rohs ve Ce Sertifikalı" },
+              "code": { "type": "string", "example": "#123456" },
+              "packages": { "type": "array", "items": { "$ref": "#/components/schemas/packageSize" } }
+            }
+          },
+          "client": { "$ref": "#/components/schemas/packageClient" },
+          "collect": { "type": "number", "example": 100 }
+        }
+      },
+      "addPackageInfoWithDealer": {
+        "type": "object",
+        "required": [ "handlerCode", "content", "client", "collect" ],
+        "allOf": [{ "$ref": "#/components/schemas/addPackage" }],
+        "properties": {
+          "handlerCode": { "type": "string", "example": "MNG" }
         }
       },
       "addPayment": {
@@ -1699,6 +2523,23 @@
           }
         }
       },
+      "addQuestion": {
+        "type": "object",
+        "required": [ "status", "question" ],
+        "properties": {
+          "status": { "type": "number", "example": 0 },
+          "question": { "type": "string", "example": "Çoraplarınızda kullanılan kumaş türleri nelerdir?" }
+        }
+      },
+      "addReview": {
+        "type": "object",
+        "required": [ "rating", "content", "status" ],
+        "properties": {
+          "status": { "type": "number", "example": 0 },
+          "rating": { "type": "number", "example": 5 },
+          "content": { "type": "string", "example": "Harika bir ürün. Kesinlikle tavsiye ederim." }
+        }
+      },
       "addToCart": {
         "type": "object",
         "required": [ "productId", "variantId", "quantity" ],
@@ -1706,6 +2547,26 @@
           "productId": { "type": "string" },
           "variantId": { "type": "string" },
           "quantity": { "type": "number" }
+        }
+      },
+      "addTranslations": { "type": "array", "items": { "$ref": "#/components/schemas/translation" } },
+      "addVariant": {
+        "type": "object",
+        "required": [ "variantsType", "variant" ],
+        "properties": {
+          "variantsType": { "$ref": "#/components/schemas/variantsType" },
+          "variant": { "$ref": "#/components/schemas/variant" }
+        }
+      },
+      "addVariantsMulti": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "allOf": [ { "$ref": "#/components/schemas/variant" } ],
+          "properties": {
+            "productId": { "type": "string", "example": "66f29aefff9245b28d05482f" },
+            "_id": { "type": "string", "example": "66f29aefff9245b28d05482e" }
+          }
         }
       },
       "addUser": {
@@ -1808,6 +2669,19 @@
           "price": { "type": "string", "example": "2500" }
         }
       },
+      "checkShippingPrice": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [ "height", "width", "depth", "weight" ],
+          "properties": {
+            "height": { "type": "number", "example": 30 },
+            "width": { "type": "number", "example": 30 },
+            "depth": { "type": "number", "example": 20 },
+            "weight": { "type": "number", "example": 2 }
+          }
+        }
+      },
       "commentBlog": {
         "type": "object",
         "properties": {
@@ -1900,6 +2774,28 @@
           "fileName": { "type": "string" }
         }
       },
+      "customer": {
+        "type": "object",
+        "required": [ "name", "surname", "email", "phoneNumber", "password", "role", "isActivated" ],
+        "properties": {
+          "name": { "type": "string", "example": "Adem" },
+          "surname": { "type": "string", "example": "Şenocak" },
+          "email": { "type": "string", "example": "senocak-a@hotmail.com" },
+          "phoneNumber": { "type": "string", "example": "905425496142" },
+          "password": { "type": "string", "example": "Passw0rd" },
+          "role": { "type": "array", "example": ["ROLE_USER"] },
+          "isActivated": { "type": "boolean", "example": true }
+        }
+      },
+      "deleteForVariant": {
+        "type": "object",
+        "required": [ "productId", "variantsType", "selectedIds" ],
+        "allOf": [{ "$ref": "#/components/schemas/deleteModel" }],
+        "properties": {
+          "productId": { "type": "string" },
+          "variantsType": { "$ref": "#/components/schemas/variantsType" }
+        }
+      },
       "deleteModel": {
         "type": "object",
         "required": [ "selectedIds" ],
@@ -1907,10 +2803,23 @@
           "selectedIds": { "type": "array", "items": { "type": "string" } }
         }
       },
+      "deleteUser": {
+        "type": "object",
+        "required": [ "password" ],
+        "properties": {
+          "password": { "type": "string" }
+        }
+      },
       "editProduct": {
         "type": "object",
         "properties": {
           "title": { "type": "string", "example": "Grundig Gpdh 9634 A++ Enerji Sınıfı 9 kg Isı Pompa" }
+        }
+      },
+      "editUser": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "Mahmut" }
         }
       },
       "file": {
@@ -1944,6 +2853,27 @@
         "properties": {
           "email": { "type": "string" },
           "password": { "type": "string" }
+        }
+      },
+      "packageClient": {
+        "type": "object",
+        "required": [ "name", "phone", "city", "town", "address" ],
+        "properties": {
+          "name": { "type": "string", "example": "Ali Sarı" },
+          "phone": { "type": "string", "example": "+905326627836" },
+          "city": { "type": "string", "example": "İstanbul" },
+          "town": { "type": "string", "example": "Kadıköy" },
+          "address": { "type": "string", "example": "Koşuyolu Mah. 1453.Cadde Nevra apartmani Daire:2 Kat:1" }
+        }
+      },
+      "packageSize": {
+        "type": "object",
+        "required": [ "height", "width", "depth", "weight" ],
+        "properties": {
+          "height": { "type": "number", "example": 10 },
+          "width": { "type": "number", "example": 15 },
+          "depth": { "type": "number", "example": 5 },
+          "weight": { "type": "number", "example": 1 }
         }
       },
       "paymentUser": {
@@ -2074,6 +3004,20 @@
           "quantity": { "type": "number", "example": 1 }
         }
       },
+      "translation": {
+        "type": "object",
+        "required": [ "locale", "name", "translations" ],
+        "properties": {
+          "locale": { "type": "string", "example": "en" },
+          "name": { "type": "string", "example": "Test" },
+          "translations": {
+            "type": "object",
+            "properties": {
+              "public_settings_currency": { "type": "string", "example": "TRY" }
+            }
+          }
+        }
+      },
       "updateAddress": {
         "type": "object",
         "properties": {
@@ -2105,6 +3049,49 @@
           }
         }
       },
+      "updateCustomer": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "Mustafa Gökay" }
+        }
+      },
+      "updateQuestion": {
+        "type": "object",
+        "required": [ "status", "question", "answer" ],
+        "properties": {
+          "status": { "type": "number", "example": 0 },
+          "question": { "type": "string", "example": "Çoraplarınızda kullanılan kumaş türleri nelerdir?" },
+          "answer": { "type": "string", "example": "Pamuk, yün ve akrilik kullandık." }
+        }
+      },
+      "updateTranslation": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "web" }
+        }
+      },
+      "updateVariant": {
+        "type": "object",
+        "required": [ "name", "variantsType" ],
+        "properties": {
+          "variantsType": { "$ref": "#/components/schemas/variantsType" },
+          "_id": { "type": "string", "example": "66f27bdc8a01cf36d27cbe1c" },
+          "name": { "type": "string", "example": "Siyah" }
+        }
+      },
+      "variant": {
+        "type": "object",
+        "required": [ "name", "images", "price", "stockQuantity", "sku", "desi" ],
+        "properties": {
+          "name": { "type": "string", "example": "Siyah" },
+          "images": { "$ref": "#/components/schemas/images" },
+          "price": { "$ref": "#/components/schemas/price" },
+          "stockQuantity": { "type": "number", "example": 100 },
+          "sku": { "type": "string", "example": "4SN106C" },
+          "gtin": { "type": "string", "example": "0123450123456" },
+          "desi": { "type": "number", "example": 2 }
+        }
+      },
       "variantsType": {
         "type": "array",
         "items": {
@@ -2114,6 +3101,29 @@
             "name": { "type": "string", "example": "Renk" },
             "variants": { "type": "array", "example": [ "Siyah" ], "items": { "type": "string" } }
           }
+        }
+      },
+      "serverResponses": {
+        "type": "object",
+        "description": "This is Success and Error answers from the Backend services. If need status code check headers",
+        "properties": {
+          "Success Request =": { "$ref": "#/components/schemas/success" },
+          "Failure Request =": { "$ref": "#/components/schemas/error" }
+        }
+      },
+      "success": {
+        "type": "object",
+        "example": "'success': {'message': '...', 'data': [{...}, {...}]}",
+        "properties": {
+          "message": { "type": "string" },
+          "data": { "type": "object" }
+        }
+      },
+      "error": {
+        "type": "object",
+        "example": "'error': {'message': '...'}",
+        "properties": {
+          "message": { "type": "string" }
         }
       }
     },
