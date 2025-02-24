@@ -1049,6 +1049,197 @@
         },
         "security": [ { "JWT": [] } ]
       }
+    },
+
+    "/public/filter": {
+      "get": {
+        "tags": [ "Filter" ],
+        "summary": "Get all filters in the system",
+        "operationId": "getFilters",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      },
+      "post": {
+        "tags": [ "Filter" ],
+        "summary": "Add a new filter to system",
+        "description": "",
+        "operationId": "addFilter",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addFilter" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addFilter" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addFilter" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/filter/category/{categoryId}": {
+      "get": {
+        "tags": [ "FILTER-CONTROLLER" ],
+        "summary": "Get filters by categoryId in the system",
+        "operationId": "getFiltersByCategoryId",
+        "parameters": [ { "in": "path", "name": "categoryId", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+
+    "/public/contact/send-message": {
+      "post": {
+        "tags": [ "Form" ],
+        "summary": "Send a Customer message to system",
+        "operationId": "sendMessageToSystem",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/contactMe" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/contactMe" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/contactMe" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/contact/upload-file": {
+      "post": {
+        "tags": [ "Form" ],
+        "summary": "User can be upload a file (xml, pdf)",
+        "operationId": "addFile",
+        "requestBody": {
+          "content": { "multipart/form-data": { "schema": { "$ref": "#/components/schemas/file" } } }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/contact/send-resume": {
+      "post": {
+        "tags": [ "Form" ],
+        "summary": "Send a Customer resume to the authorities",
+        "operationId": "sendResume",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/contactMeResume" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/contactMeResume" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/contactMeResume" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/contact/send-error-message": {
+      "post": {
+        "tags": [ "Form" ],
+        "summary": "Send a Customer error message to system",
+        "operationId": "sendErrorMessageToSystem",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/contactMeError" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/contactMeError" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/contactMeError" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/contact/subscribe": {
+      "post": {
+        "tags": [ "Form" ],
+        "summary": "Add your email to subscription list",
+        "operationId": "addMailToSubscription",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+
+    "/admin/google-cloud/analytics-live": {
+      "get": {
+        "tags": [ "Google Cloud" ],
+        "summary": "Get google analytics live stream",
+        "operationId": "getAnalyticsLive",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/google-cloud/analytics-report": {
+      "get": {
+        "tags": [ "Google Cloud" ],
+        "summary": "Get google analytics data for the system",
+        "operationId": "getAnalyticsReport",
+        "parameters": [
+          { "in": "query", "name": "dimension", "required": true, "schema": { "type": "string", "example": "country" } },
+          { "in": "query", "name": "metric", "required": true, "schema": { "type": "string", "example": "activeUsers" } },
+          { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string" }, "example": "2024-12-15T00:00:00.000Z" },
+          { "in": "query", "name": "endDate", "required": false, "schema": { "type": "boolean" }, "example": "2024-12-15T23:59:59.999Z" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
+    "/api/public/payment": {
+      "get": {
+        "tags": [ "Payment" ],
+        "summary": "Get User payment in system",
+        "operationId": "getPayment",
+        "parameters": [
+          { "in": "path", "name": "orderId", "required": true, "schema": { "type": "string" } },
+          { "in": "path", "name": "orderToken", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      },
+      "post": {
+        "tags": [ "Payment" ],
+        "summary": "Save payment result to the system",
+        "operationId": "savePayment",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/savePayment" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/savePayment" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/savePayment" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
     }
   },
   "components": {
@@ -1102,6 +1293,15 @@
         }
       },
       "addCategory": { "type": "array", "items": { "$ref": "#/components/schemas/category" } },
+      "addFilter": {
+        "type": "object",
+        "required": [ "name" ],
+        "properties": {
+          "name": { "type": "string" },
+          "options": { "type": "array" },
+          "active": { "type": "boolean" }
+        }
+      },
       "addCompany": {
         "type": "object",
         "required": [ "name", "address" ],
@@ -1145,12 +1345,53 @@
           "content": { "type": "string", "example": "<p>Test</p>" }
         }
       },
+      "basketItems": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [ "id", "name", "price", "quantity", "category1", "category2", "itemType", "tax" ],
+          "properties": {
+            "id": { "type": "string", "example": "674094c121add706a8980815" },
+            "name": { "type": "string", "example": "Alluve Lilac Superslims - 20 Cigarettes" },
+            "price": { "type": "number", "example": 500 },
+            "quantity": { "type": "number", "example": 1 },
+            "category1": { "type": "string", "example": "Sigaralar" },
+            "category2": { "type": "string", "example": "product" },
+            "itemType": { "type": "string", "example": "PHYSICAL" },
+            "tax": { "type": "number", "example": 20 }
+          }
+        }
+      },
+      "billingAddress": {
+        "type": "object",
+        "required": [ "name", "surname", "country", "city", "address" ],
+        "properties": {
+          "name": { "type": "string", "example": "Halil" },
+          "surname": { "type": "string", "example": "Gür" },
+          "country": { "type": "string", "example": "Turkey" },
+          "city": { "type": "string", "example": "Antalya" },
+          "address": { "type": "string", "example": "Bahçelievler Mahallesi, Atatürk Parkı 25/21" },
+          "zipCode": { "type": "string", "example": "07030" }
+        }
+      },
       "blog": {
         "type": "object",
         "required": [ "name", "content" ],
         "properties": {
           "name": { "type": "string", "example": "Ticaret ve E-ticaret Kavramları" },
           "content": { "type": "string", "example": "<p><b>Merhaba</b> bu bir test yazisidir.</p>" }
+        }
+      },
+      "buyer": {
+        "type": "object",
+        "required": [ "email", "identityNumber", "registrationAddress", "country", "city" ],
+        "properties": {
+          "email": { "type": "string", "example": "davidmashadow@yandex.com" },
+          "identityNumber": { "type": "string", "example": "19342410262" },
+          "registrationAddress": { "type": "string", "example": "Sarıabalı Mahallesi, Müftüler Mevki, Sokak:20 No:3 Serik" },
+          "country": { "type": "string",  "example": "Turkey" },
+          "city": { "type": "string", "example": "Antalya" },
+          "zipCode": { "type": "string", "example": "07500" }
         }
       },
       "brand": {
@@ -1220,11 +1461,50 @@
           "cashDiscount": { "type": "string", "example": "0" }
         }
       },
+      "contactMe": {
+        "type": "object",
+        "required": [ "firstName", "email", "phoneNumber", "message", "agreed" ],
+        "properties": {
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "company": { "type": "string" },
+          "email": { "type": "string" },
+          "phoneNumber": { "type": "string" },
+          "message": { "type": "string" },
+          "agreed": { "type": "boolean" }
+        }
+      },
+      "contactMeError": {
+        "type": "object",
+        "required": [ "title", "message" ],
+        "properties": {
+          "email": { "type": "string" },
+          "title": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      },
+      "contactMeResume": {
+        "type": "object",
+        "required": [ "firstName", "lastName", "email", "phoneNumber", "fileName" ],
+        "properties": {
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string" },
+          "phoneNumber": { "type": "string" },
+          "fileName": { "type": "string" }
+        }
+      },
       "deleteModel": {
         "type": "object",
         "required": [ "selectedIds" ],
         "properties": {
           "selectedIds": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "file": {
+        "type": "object",
+        "properties": {
+          "file": { "type": "string", "format": "binary" }
         }
       },
       "image": {
@@ -1247,6 +1527,18 @@
           "password": { "type": "string" }
         }
       },
+      "paymentUser": {
+        "type": "object",
+        "required": [ "id", "paymentId", "token", "contactName", "phoneNumber", "email" ],
+        "properties": {
+          "id": { "type": "string", "example": "66ae616a9d86f0da5d4d25f6" },
+          "paymentId": { "type": "string", "example": "22629933" },
+          "token": { "type": "string", "example": "649eb03e-cfd2-4f24-86b0-95628a37a029" },
+          "contactName": { "type": "string", "example": "Halil Erbil Gür" },
+          "phoneNumber": { "type": "string", "example": "905527406607" },
+          "email": { "type": "string", "example": "halilerbilgur@gmail.com" }
+        }
+      },
       "passwordResetCompleteUser": {
         "type": "object",
         "required": [ "email", "key", "newPassword" ],
@@ -1261,6 +1553,41 @@
         "required": [ "email" ],
         "properties": {
           "email": { "type": "string" }
+        }
+      },
+      "savePayment": {
+        "type": "object",
+        "required": [ "method", "status", "paymentUser", "buyer", "shippingAddress", "billingAddress", "basketItems", "shipping" ],
+        "properties": {
+          "method": { "type": "number", "example": 0 },
+          "status": { "type": "string", "example": "pending" },
+          "paymentUser": { "$ref": "#/components/schemas/paymentUser" },
+          "buyer": { "$ref": "#/components/schemas/buyer" },
+          "shippingAddress": { "$ref": "#/components/schemas/shippingAddress" },
+          "billingAddress": { "$ref": "#/components/schemas/billingAddress" },
+          "basketItems": { "$ref": "#/components/schemas/basketItems" },
+          "shipment": { "$ref": "#/components/schemas/shipment" }
+        }
+      },
+      "shipment": {
+        "type": "object",
+        "required": [ "method", "name", "price" ],
+        "properties": {
+          "method": { "type": "string", "example": "PACKAGE" },
+          "name": { "type": "string", "example": "ARAS" },
+          "price": { "type": "number", "example": 50 }
+        }
+      },
+      "shippingAddress": {
+        "type": "object",
+        "required": [ "name", "surname", "country", "city", "address" ],
+        "properties": {
+          "name": { "type": "string", "example": "Ayşe" },
+          "surname": { "type": "string", "example": "Sarı" },
+          "country": { "type": "string", "example": "Turkey" },
+          "city": { "type": "string", "example": "Antalya"},
+          "address": { "type": "string", "example": "Sarıabalı Mahallesi, Müftüler Mevki, Sokak:20 No:3 Serik" },
+          "zipCode": { "type": "string", "example": "07500" }
         }
       },
       "setQuantity": {
