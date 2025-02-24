@@ -3,12 +3,12 @@
   "info": {
     "title": "SS-E-commerce - API - OpenAPI 3.0",
     "description": "",
-    "termsOfService": "http://swagger.io/terms/",
+    "termsOfService": "https://swagger.io/terms/",
     "contact": { "email": "admin@ssyazilim.com" },
     "license": { "name": "MIT", "url": "https://opensource.org/licenses/MIT" },
     "version": "1.0.11"
   },
-  "externalDocs": { "description": "Find out more about Swagger", "url": "http://swagger.io" },
+  "externalDocs": { "description": "Find out more about Swagger", "url": "https://swagger.io" },
   "servers": [
     { "url": "http://localhost:5000/api" },
     { "url": "https://api.ulusanelektrik.com/api" }
@@ -17,7 +17,25 @@
     { "name": "Authentication", "description": "API authentications process for users" },
     { "name": "Address", "description": "Addresses for the system" },
     { "name": "Agreement",  "description": "User agreements for the system" },
-    { "name": "Blog", "description": "Blogs for the system" }
+    { "name": "Blog", "description": "Blogs for the system" },
+    { "name": "Brand", "description": "Brands for the system" },
+    { "name": "Card", "description": "User card information" },
+    { "name": "Cart", "description": "Carts for the system" },
+    { "name": "Category", "description": "Categories for the system" },
+    { "name": "Company", "description": "Company information for the User" },
+    { "name": "Currency", "description": "Currencies for the system" },
+    { "name": "Filter", "description": "Filters for the system" },
+    { "name": "Form", "description": "Form process for users" },
+    { "name": "Google Cloud", "description": "Google cloud operations for the system" },
+    { "name": "Payment", "description": "User payment information" },
+    { "name": "Product", "description": "Products for the system" },
+    { "name": "Product Variant", "description": "Variants for the products" },
+    { "name": "Question", "description": "Questions for the product" },
+    { "name": "Review", "description": "Reviews for the product" },
+    { "name": "Shipping", "description": "Shipping calculations for the system" },
+    { "name": "Translation", "description": "Translations for the system" },
+    { "name": "User", "description": "User process for users" }
+
   ],
   "paths": {
     "/public/auth/login": {
@@ -455,6 +473,582 @@
         },
         "security": [ { "JWT": [] } ]
       }
+    },
+
+    "/public/brand": {
+      "get": {
+        "tags": [ "Brand" ],
+        "summary": "Get all brands in the system",
+        "operationId": "getBrands",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/brand/{brandId}": {
+      "get": {
+        "tags": [ "Brand" ],
+        "summary": "Get a brand from the system",
+        "operationId": "getBrand",
+        "parameters": [ { "in": "path", "name": "brandId", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/brand/{brandId}": {
+      "patch": {
+        "tags": [ "Brand" ],
+        "summary": "Update a brand from the system",
+        "operationId": "updateBrand",
+        "parameters": [ { "in": "path", "name": "brandId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/updateBrand" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/updateBrand" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateBrand" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/brands": {
+      "post": {
+        "tags": [ "Brand" ],
+        "summary": "Add a new brands to system (JSON or CSV)",
+        "operationId": "addBrands",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addBrands" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addBrands" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addBrands" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/brand": {
+      "post": {
+        "tags": [ "Brand" ],
+        "summary": "Add a new brand to system",
+        "operationId": "addBrand",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/brand" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/brand" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/brand" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      },
+      "delete": {
+        "tags": [ "Brand" ],
+        "summary": "Delete a brand or brands in the system",
+        "description": "",
+        "operationId": "deleteBrands",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+
+    "/public/check-card/{userKey}": {
+      "get": {
+        "tags": [ "Card" ],
+        "summary": "Get a special card for the user",
+        "operationId": "getCardWithDetail",
+        "parameters": [ { "in": "path", "name": "userKey", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/card": {
+      "get": {
+        "tags": [ "Card" ],
+        "summary": "Get user cards token in the system",
+        "operationId": "getCard",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "post": {
+        "tags": [ "Card" ],
+        "summary": "Add a new card to system",
+        "description": "",
+        "operationId": "addCard",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addCard" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addCard" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addCard" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/card/{cardId}": {
+      "delete": {
+        "tags": [ "Card" ],
+        "summary": "Delete a User card in the system",
+        "operationId": "deleteCard",
+        "parameters": [ { "in": "path", "name": "cardId", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/cards": {
+      "get": {
+        "tags": [ "Card" ],
+        "summary": "Get all cards token in the system",
+        "operationId": "getAllCards",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
+    "/public/cart": {
+      "get": {
+        "tags": [ "Cart" ],
+        "summary": "Get a cart from the system for User",
+        "operationId": "getCartWithUserId",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "post": {
+        "tags": [ "Cart" ],
+        "summary": "Add a new cart to system for User",
+        "operationId": "addCart",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/cart/product/update": {
+      "post": {
+        "tags": [ "Cart" ],
+        "summary": "Add or remove product for cart",
+        "operationId": "addToCart",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addToCart" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addToCart" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addToCart" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/cart/set-quantity": {
+      "post": {
+        "tags": [ "Cart" ],
+        "summary": "Set quantity for product or variant",
+        "operationId": "setQuantity",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/setQuantity" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/setQuantity" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/setQuantity" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/carts": {
+      "get": {
+        "tags": [ "Cart" ],
+        "summary": "Get all carts in the system",
+        "operationId": "getCarts",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
+          { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string" }, "example": "2024-12-15T00:00:00.000Z" },
+          { "in": "query", "name": "endDate", "required": false, "schema": { "type": "boolean" }, "example": "2024-12-15T23:59:59.999Z" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/cart/{cartId}": {
+      "get": {
+        "tags": [ "Cart" ],
+        "summary": "Get a cart from the system",
+        "operationId": "getCart",
+        "parameters": [ { "in": "path", "name": "cartId", "required": true, "schema": { "type": "string" } } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
+    "/public/categories": {
+      "get": {
+        "tags": [ "Category" ],
+        "summary": "Get all categories in the system",
+        "operationId": "getCategories",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer" }, "example": 1 },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "example": 10 },
+          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string" }, "example": "updatedAt,desc" },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/category/parent/{parentName}": {
+      "get": {
+        "tags": [ "Category" ],
+        "summary": "Returns matching category parents in the database",
+        "operationId": "getCategoryParent",
+        "parameters": [ { "in": "path", "name": "parentName", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/category/tree/{treeName}": {
+      "get": {
+        "tags": [ "Category" ],
+        "summary": "Returns all matching category for the category tree in database",
+        "operationId": "getCategoryTree",
+        "parameters": [ { "in": "path", "name": "treeName", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/category/name/{categoryName}": {
+      "get": {
+        "tags": [ "Category" ],
+        "summary": "Returns all category parents matching the category name in the database",
+        "operationId": "getCategoryNodes",
+        "parameters": [ { "in": "path", "name": "categoryName", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/categories/google/{locale}": {
+      "get": {
+        "tags": [ "Category" ],
+        "summary": "Get Google categories from the system",
+        "operationId": "getGoogleCategories",
+        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/categories": {
+      "post": {
+        "tags": [ "Category" ],
+        "summary": "Add a new categories to system",
+        "operationId": "addCategories",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addCategory" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addCategory" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addCategory" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/category": {
+      "post": {
+        "tags": [ "Category" ],
+        "summary": "Add a new category to system",
+        "operationId": "addCategory",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/category" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/category" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/category" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      },
+      "delete": {
+        "tags": [ "Category" ],
+        "summary": "Delete a categories in the system",
+        "description": "",
+        "operationId": "deleteCategories",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/category/{categoryId}": {
+      "patch": {
+        "tags": [ "Category" ],
+        "summary": "Update a category from the system",
+        "operationId": "updateCategory",
+        "parameters": [ { "in": "path", "name": "categoryId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/category" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/category" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/category" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+
+    "/public/company": {
+      "get": {
+        "tags": [ "Company" ],
+        "summary": "Get a company information in the system",
+        "operationId": "getCompany",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/company": {
+      "post": {
+        "tags": [ "Company" ],
+        "summary": "Add a company information for the system",
+        "operationId": "addCompany",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addCompany" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addCompany" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addCompany" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/company/{companyId}": {
+      "patch": {
+        "tags": [ "Company" ],
+        "summary": "Update a company to the system",
+        "operationId": "updateCompany",
+        "parameters": [ { "in": "path", "name": "companyId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/updateCompany" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/updateCompany" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateCompany" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/company/image/{type}": {
+      "post": {
+        "tags": [ "Company" ],
+        "summary": "User can be update company logo or favicon using this api",
+        "operationId": "updateImage",
+        "parameters": [ { "in": "path", "name": "type", "required": true, "schema": { "type": "string" } } ],
+        "requestBody": {
+          "content": { "multipart/form-data": { "schema": { "$ref": "#/components/schemas/image" } } }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/company/payment/{companyId}": {
+      "post": {
+        "tags": [ "Company" ],
+        "summary": "Add a company payment for the system",
+        "operationId": "addCompanyPayments",
+        "parameters": [ { "in": "path", "name": "companyId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/companyPayment" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/companyPayment" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/companyPayment" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "patch": {
+        "tags": [ "Company" ],
+        "summary": "Update a company payment for the system",
+        "operationId": "updateCompanyPayments",
+        "parameters": [ { "in": "path", "name": "companyId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/companyPayment" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/companyPayment" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/companyPayment" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Company" ],
+        "summary": "Delete a company payment in the system",
+        "description": "",
+        "operationId": "deleteCompanyPayments",
+        "parameters": [ { "in": "path", "name": "companyId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+
+    "/public/currencies": {
+      "get": {
+        "tags": [ "Currency" ],
+        "summary": "Get all currencies in the system",
+        "operationId": "getCurrencies",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/currencies/exchange": {
+      "get": {
+        "tags": [ "Currency" ],
+        "summary": "Converts the sent rate to the desired rate",
+        "description": "TRY = Turkish Lira | USD = American Dollar | EUR = Euro | GBP = British Pound Sterling | CHF = Switzerland Frank | JPY = Japanese Yen | SAR = Saudi Riyal | NOK = Norwegian Krone | DKK = Danish Krone | AUD = Australian Dollar | CAD = Canada Dollar | SEK = Swedish Krone | SRU = Russian Ruble",
+        "operationId": "listCurrency",
+        "parameters": [
+          { "in": "query", "name": "from", "description": "TRY, USD, EUR, GBP, CHF, JPY, SAR, NOK, DKK, AUD, CAD, SEK, SRU", "required": true, "schema": { "type": "string" } },
+          { "in": "query", "name": "quantity", "description": "You can define a number for currency amount", "required": true, "schema": { "type": "string" } },
+          { "in": "query", "name": "to", "description": "TRY, USD, EUR, GBP, CHF, JPY, SAR, NOK, DKK, AUD, CAD, SEK, SRU", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/currencies": {
+      "post": {
+        "tags": [ "Currency" ],
+        "summary": "Update all currency informations in the system and give back to users",
+        "operationId": "listAndCreateCurrency",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
     }
   },
   "components": {
@@ -488,6 +1082,49 @@
       },
       "addAgreements": { "type": "array", "items": { "$ref": "#/components/schemas/agreement" } },
       "addBlogs": { "type": "array", "items": { "$ref": "#/components/schemas/blog" } },
+      "addBrands": { "type": "array", "items": { "$ref": "#/components/schemas/brand" } },
+      "addCard": {
+        "type": "object",
+        "required": [ "cardAlias", "cardHolderName", "cardNumber", "expireMonth", "expireYear", "email" ],
+        "properties": {
+          "email": { "type": "string", "example": "alisarisariabali@gmail.com" },
+          "card": {
+            "type": "object",
+            "required": [ "cardAlias", "cardHolderName", "cardNumber", "expireMonth", "expireYear" ],
+            "properties": {
+              "cardAlias": { "type": "string", "example": "ALISARI" },
+              "cardHolderName": { "type": "string", "example": "ALI SARI" },
+              "cardNumber": { "type": "string", "example": "5170410000000004" },
+              "expireMonth": { "type": "string", "example": "10" },
+              "expireYear": { "type": "string", "example": "2030" }
+            }
+          }
+        }
+      },
+      "addCategory": { "type": "array", "items": { "$ref": "#/components/schemas/category" } },
+      "addCompany": {
+        "type": "object",
+        "required": [ "name", "address" ],
+        "properties": {
+          "name": { "type": "string", "example": "Test" },
+          "description": { "type": "string", "example": "Lorem ipsum dolor sit amet" },
+          "timeZone": { "type": "string", "example": "Europe/Istanbul" },
+          "currency": { "type": "string", "example": "TRY" },
+          "address": { "$ref": "#/components/schemas/companyAddress" },
+          "socialMedia": { "type": "array", "items": { "$ref": "#/components/schemas/companySocialMedia" } },
+          "payments": { "type": "array", "items": { "$ref": "#/components/schemas/companyPayment" } },
+          "properties": { "$ref": "#/components/schemas/companyProperties" }
+        }
+      },
+      "addToCart": {
+        "type": "object",
+        "required": [ "productId", "variantId", "quantity" ],
+        "properties": {
+          "productId": { "type": "string" },
+          "variantId": { "type": "string" },
+          "quantity": { "type": "number" }
+        }
+      },
       "addUser": {
         "type": "object",
         "required": [ "name", "email", "phoneNumber", "password" ],
@@ -516,6 +1153,22 @@
           "content": { "type": "string", "example": "<p><b>Merhaba</b> bu bir test yazisidir.</p>" }
         }
       },
+      "brand": {
+        "type": "object",
+        "required": [ "name" ],
+        "properties": {
+          "name": { "type": "string" }
+        }
+      },
+      "category": {
+        "type": "object",
+        "required": [ "name", "parent", "tree" ],
+        "properties": {
+          "name": { "type": "string" },
+          "parent": { "type": "string" },
+          "tree": { "type": "array", "example": [ "root" ], "items": { "type": "string" } }
+        }
+      },
       "commentBlog": {
         "type": "object",
         "properties": {
@@ -523,11 +1176,61 @@
           "text": { "type": "string" }
         }
       },
+      "companyAddress": {
+        "type": "object",
+        "required": [ "isCompany","phoneNumber", "email", "country", "city", "district", "line" ],
+        "properties": {
+          "isCompany": { "type": "boolean", "example": false },
+          "companyName": { "type": "string", "example": "" },
+          "name": { "type": "string", "example": "SULEYMAN" },
+          "surname": { "type": "string", "example": "SARI" },
+          "taxOffice": { "type": "string", "example": "" },
+          "taxNumber": { "type": "string", "example": "" },
+          "identityNumber": { "type": "string", "example": "19201414912" },
+          "phoneNumber": { "type": "string", "example": "+905556988597" },
+          "email": { "type": "string", "example": "suleymansari@aol.com" },
+          "country": { "type": "string", "example": "TURKEY" },
+          "city": { "type": "string",  "example": "ANTALYA" },
+          "district": { "type": "string", "example": "SERIK" },
+          "zipCode": { "type": "string", "example": "07500" },
+          "line": { "type": "string", "example": "SARIABALI MAHALLESI, MUFTULER MEVKI, SOKAK:20 NO:3" }
+        }
+      },
+      "companySocialMedia": {
+        "type": "object",
+        "required": [ "name", "link", "icon" ],
+        "properties": {
+          "name": { "type": "string", "example": "Facebook" },
+          "link": { "type": "string", "example": "https://www.facebook.com/suleyman.sari/" },
+          "icon": { "type": "string", "example": "M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" }
+        }
+      },
+      "companyPayment": {
+        "type": "object",
+        "required": [ "status", "content" ],
+        "properties": {
+          "status": { "type": "string", "example": "{'_id':'0','name':'IBAN'}" },
+          "content": { "type": "string", "example": "<p>David Mashadow</p><p>TR66 0011 1000 0000 0075 9822 31</p>" }
+        }
+      },
+      "companyProperties": {
+        "type": "object",
+        "required": [ "cashDiscount" ],
+        "properties": {
+          "cashDiscount": { "type": "string", "example": "0" }
+        }
+      },
       "deleteModel": {
         "type": "object",
         "required": [ "selectedIds" ],
         "properties": {
           "selectedIds": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "image": {
+        "type": "object",
+        "properties": {
+          "image": { "type": "string", "format": "binary" }
         }
       },
       "likeBlog": {
@@ -560,6 +1263,14 @@
           "email": { "type": "string" }
         }
       },
+      "setQuantity": {
+        "type": "object",
+        "required": [ "itemId", "quantity" ],
+        "properties": {
+          "itemId": { "type": "string" },
+          "quantity": { "type": "number", "example": 1 }
+        }
+      },
       "updateAddress": {
         "type": "object",
         "properties": {
@@ -570,6 +1281,25 @@
         "type": "object",
         "properties": {
           "name": { "type": "string", "example": "web" }
+        }
+      },
+      "updateBrand": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" }
+        }
+      },
+      "updateCompany": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "object",
+            "required": [ "isCompany" ],
+            "properties": {
+              "isCompany": { "type": "boolean", "example": false },
+              "name": { "type": "string", "example": "AYSE" }
+            }
+          }
         }
       }
     },
