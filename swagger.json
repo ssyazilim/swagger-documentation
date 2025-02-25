@@ -2448,13 +2448,15 @@
         "required": [ "name", "address" ],
         "properties": {
           "name": { "type": "string", "example": "Test" },
+          "baseUrl": { "type": "string", "example": "159.146.116.95:3001" },
           "description": { "type": "string", "example": "Lorem ipsum dolor sit amet" },
           "timeZone": { "type": "string", "example": "Europe/Istanbul" },
           "currency": { "type": "string", "example": "TRY" },
           "address": { "$ref": "#/components/schemas/companyAddress" },
           "socialMedia": { "type": "array", "items": { "$ref": "#/components/schemas/companySocialMedia" } },
           "payments": { "type": "array", "items": { "$ref": "#/components/schemas/companyPayment" } },
-          "properties": { "$ref": "#/components/schemas/companyProperties" }
+          "properties": { "$ref": "#/components/schemas/companyProperties" },
+		  "mailOptions": { "$ref": "#/components/schemas/companyMailOptions" }
         }
       },
       "addCustomers": { "type": "array", "items": { "$ref": "#/components/schemas/customer" } },
@@ -2733,6 +2735,19 @@
           "cashDiscount": { "type": "string", "example": "0" }
         }
       },
+	  "companyMailOptions": {
+		"type": "object",
+		"required": [ "user", "password", "host", "port", "mainMail", "secondMail" ],
+		"properties": {
+		  "user": { "type": "string", "example": "no-reply@ssyazilim.com" },
+		  "password": { "type": "string", "example": "Passw0rd" },
+		  "host": { "type": "string", "example": "mail.ssyazilim.com" },
+		  "port": { "type": "number", "example": 465 },
+		  "mainMail": { "type": "string", "example": "admin@ssyazilim.com" },
+		  "secondMail": { "type": "string", "example": "baris.gur@ssyazilim.com" },
+		  "from": { "type": "string", "example": "SS-TEST|✉|<erbil.gur@ssyazilim.com>" }
+		}
+	  },
       "completePayment3D": {
         "type": "object",
         "required": [ "conversationId", "conversationData" ],
