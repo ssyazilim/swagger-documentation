@@ -1059,7 +1059,8 @@
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
-        }
+        },
+        "security": [ { "JWT": [] } ]
       },
       "post": {
         "tags": [ "External" ],
@@ -1075,7 +1076,8 @@
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
-        }
+        },
+        "security": [ { "JWT": [] } ]
       }
     },
     "/admin/external/{externalId}": {
