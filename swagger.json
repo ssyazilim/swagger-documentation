@@ -24,7 +24,7 @@
     { "name": "Category", "description": "Categories for the system" },
     { "name": "Company", "description": "Company information for the User" },
     { "name": "Currency", "description": "Currencies for the system" },
-    { "name": "Filter", "description": "Filters for the system" },
+    { "name": "External", "description": "External Services for the system" },
     { "name": "Form", "description": "Form process for users" },
     { "name": "Google Cloud", "description": "Google cloud operations for the system" },
     { "name": "Payment", "description": "User payment information" },
@@ -1051,26 +1051,25 @@
       }
     },
 
-    "/public/filter": {
+    "/admin/externals": {
       "get": {
-        "tags": [ "Filter" ],
-        "summary": "Get all filters in the system",
-        "operationId": "getFilters",
+        "tags": [ "External" ],
+        "summary": "Get external servics in the system",
+        "operationId": "getExternals",
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
         }
       },
       "post": {
-        "tags": [ "Filter" ],
-        "summary": "Add a new filter to system",
-        "description": "",
-        "operationId": "addFilter",
+        "tags": [ "External" ],
+        "summary": "Add a new external to the system",
+        "operationId": "addExternal",
         "requestBody": {
           "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/addFilter" } },
-            "application/xml": { "schema": { "$ref": "#/components/schemas/addFilter" } },
-            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addFilter" } }
+            "application/json": { "schema": { "$ref": "#/components/schemas/addExternal" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addExternal" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addExternal" } }
           }
         },
         "responses": {
@@ -1079,16 +1078,24 @@
         }
       }
     },
-    "/public/filter/category/{categoryId}": {
-      "get": {
-        "tags": [ "Filter" ],
-        "summary": "Get filters by categoryId in the system",
-        "operationId": "getFiltersByCategoryId",
-        "parameters": [ { "in": "path", "name": "categoryId", "required": true, "schema": { "type": "string" } }],
+    "/admin/external/{externalId}": {
+      "patch": {
+        "tags": [ "External" ],
+        "summary": "Update a external to the system",
+        "operationId": "updateExternal",
+        "parameters": [ { "in": "path", "name": "externalId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/updateExternal" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/updateExternal" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateExternal" } }
+          }
+        },
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
-        }
+        },
+        "security": [ { "JWT": [] } ]
       }
     },
 
@@ -2460,13 +2467,17 @@
         }
       },
       "addCustomers": { "type": "array", "items": { "$ref": "#/components/schemas/customer" } },
-      "addFilter": {
+      "addExternal": {
         "type": "object",
         "required": [ "name" ],
         "properties": {
-          "name": { "type": "string" },
-          "options": { "type": "array" },
-          "active": { "type": "boolean" }
+          "geoLocation": { "$ref": "#/components/schemas/externalGeoLocation" },
+          "iyzico": { "$ref": "#/components/schemas/externalIyzico" },
+          "basitKargo": { "$ref": "#/components/schemas/externalBasitKargo" },
+          "google": { "$ref": "#/components/schemas/externalGoogle" },
+          "facebook": { "$ref": "#/components/schemas/externalFacebook" },
+          "countryStateCity": { "$ref": "#/components/schemas/externalCountryStateCity" },
+          "tawkTo": { "$ref": "#/components/schemas/externalTawkTo" }
         }
       },
       "addPackage": {
@@ -2837,6 +2848,70 @@
           "name": { "type": "string", "example": "Mahmut" }
         }
       },
+      "externalGeoLocation": {
+        "type": "object",
+        "required": [ "apiKey" ],
+        "properties": {
+          "apiKey": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" }
+        }
+      },
+      "externalIyzico": {
+        "type": "object",
+        "required": [ "lang", "url", "apiKey", "secretKey" ],
+        "properties": {
+          "lang": { "type": "string", "example": "tr" },
+          "url": { "type": "string", "example": "https://sandbox-api.iyzipay.com" },
+          "apiKey": { "type": "string", "example": "sandbox-84dede8f9e564a298f0c841693c91fd5" },
+          "secretKey": { "type": "string", "example": "sandbox-84dede8f9e564a298f0c841693c91fd5" }
+        }
+      },
+      "externalBasitKargo": {
+        "type": "object",
+        "required": [ "url", "apiKey" ],
+        "properties": {
+          "url": { "type": "string", "example": "https://basitkargo.com" },
+          "apiKey": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" }
+        }
+      },
+      "externalGoogle": {
+        "type": "object",
+        "required": [ "analyticsId", "analyticsPropertyId", "tagManagerId", "apiKey", "clientId", "clientSecret", "callbackUrl" ],
+        "properties": {
+          "analyticsId": { "type": "string", "example": "G-123456" },
+          "analyticsPropertyId": { "type": "string", "example": "123456789" },
+          "tagManagerId": { "type": "string", "example": "GTM-123456" },
+          "apiKey": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" },
+          "clientId": { "type": "string", "example": "123456-abcdef123456.apps.googleusercontent.com" },
+          "clientSecret": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" },
+          "callbackUrl": { "type": "string", "example": "https://www.google.com" }
+        }
+      },
+      "externalFacebook": {
+        "type": "object",
+        "required": [ "apiKey", "clientId", "clientSecret", "callbackUrl" ],
+        "properties": {
+          "apiKey": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" },
+          "clientId": { "type": "string", "example": "123456-abcdef123456.apps.facebookusercontent.com" },
+          "clientSecret": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" },
+          "callbackUrl": { "type": "string", "example": "https://www.facebook.com" }
+        }
+      },
+      "externalCountryStateCity": {
+        "type": "object",
+        "required": [ "url", "apiKey" ],
+        "properties": {
+          "url": { "type": "string", "example": "https://api.countrystatecity.in/v1/countries" },
+          "apiKey": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" }
+        }
+      },
+      "externalTawkTo": {
+        "type": "object",
+        "required": [ "propertyId", "widgetId" ],
+        "properties": {
+          "propertyId": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" },
+          "widgetId": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" }
+        }
+      },
       "file": {
         "type": "object",
         "properties": {
@@ -3068,6 +3143,17 @@
         "type": "object",
         "properties": {
           "name": { "type": "string", "example": "Mustafa Gökay" }
+        }
+      },
+      "updateExternal": {
+        "type": "object",
+        "properties": {
+          "geoLocation": {
+            "type": "object",
+            "properties": {
+              "apiKey": { "type": "string", "example": "123456" }
+            }
+          }
         }
       },
       "updateQuestion": {
