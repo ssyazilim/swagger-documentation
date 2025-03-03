@@ -11,6 +11,7 @@
   "externalDocs": { "description": "Find out more about Swagger", "url": "https://swagger.io" },
   "servers": [
     { "url": "http://localhost:5000/api" },
+    { "url": "http://192.168.1.9:5000/api" },
     { "url": "https://api.ulusanelektrik.com/api" }
   ],
   "tags": [
@@ -1185,6 +1186,25 @@
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
         }
+      }
+    },
+    "/admin/contact/check-smtp": {
+      "post": {
+        "tags": [ "Form" ],
+        "summary": "Check your SMTP settings is valid",
+        "operationId": "checkSMTP",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/checkSMTP" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/checkSMTP" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/checkSMTP" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
       }
     },
 
@@ -2684,6 +2704,17 @@
           "price": { "type": "string", "example": "2500" }
         }
       },
+      "checkSMTP": {
+        "type": "object",
+        "required": [ "user", "password", "host", "port", "from" ],
+        "properties": {
+          "user": { "type": "string", "example": "no-reply@ssyazilim.com" },
+          "password": { "type": "string" },
+          "host": { "type": "string", "example": "mail.ssyazilim.com" },
+          "port": { "type": "number", "example": 465 },
+          "from": { "type": "string", "example": "SS-TEST | ✉️ | <no-reply@ssyazilim.com>" }
+        }
+      },
       "checkShippingPrice": {
         "type": "array",
         "items": {
@@ -2748,19 +2779,19 @@
           "cashDiscount": { "type": "string", "example": "0" }
         }
       },
-	  "companyMailOptions": {
-		"type": "object",
-		"required": [ "user", "password", "host", "port", "mainMail", "secondMail" ],
-		"properties": {
-		  "user": { "type": "string", "example": "no-reply@ssyazilim.com" },
-		  "password": { "type": "string", "example": "Passw0rd" },
-		  "host": { "type": "string", "example": "mail.ssyazilim.com" },
-		  "port": { "type": "number", "example": 465 },
-		  "mainMail": { "type": "string", "example": "admin@ssyazilim.com" },
-		  "secondMail": { "type": "string", "example": "baris.gur@ssyazilim.com" },
-		  "from": { "type": "string", "example": "SS-TEST|✉|<erbil.gur@ssyazilim.com>" }
-		}
-	  },
+      "companyMailOptions": {
+      "type": "object",
+      "required": [ "user", "password", "host", "port", "mainMail", "secondMail" ],
+      "properties": {
+        "user": { "type": "string", "example": "no-reply@ssyazilim.com" },
+        "password": { "type": "string", "example": "Passw0rd" },
+        "host": { "type": "string", "example": "mail.ssyazilim.com" },
+        "port": { "type": "number", "example": 465 },
+        "mainMail": { "type": "string", "example": "admin@ssyazilim.com" },
+        "secondMail": { "type": "string", "example": "baris.gur@ssyazilim.com" },
+        "from": { "type": "string", "example": "SS-TEST|✉|<erbil.gur@ssyazilim.com>" }
+        }
+      },
       "completePayment3D": {
         "type": "object",
         "required": [ "conversationId", "conversationData" ],
@@ -3133,10 +3164,17 @@
         "properties": {
           "address": {
             "type": "object",
-            "required": [ "isCompany" ],
+            "required": [ "isCompany", "name", "surname", "phoneNumber", "email", "country", "city", "district", "line" ],
             "properties": {
               "isCompany": { "type": "boolean", "example": false },
-              "name": { "type": "string", "example": "AYSE" }
+              "name": { "type": "string", "example": "AYSE" },
+              "surname": { "type": "string", "example": "SARI" },
+              "phoneNumber": { "type": "string", "example": "905556988597" },
+              "email": { "type": "string", "example": "arda164@hotmail.com" },
+              "country": { "type": "string", "example": "Turkey" },
+              "city": { "type": "string", "example": "Antalya" },
+              "district": { "type": "string", "example": "Serik" },
+              "line": { "type": "string", "example": "Sariabali Mahallesi, Muftuler Mevki, Sokak:20 No:3" }
             }
           }
         }
