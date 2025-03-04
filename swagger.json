@@ -1052,11 +1052,11 @@
       }
     },
 
-    "/admin/externals": {
+    "/admin/external": {
       "get": {
         "tags": [ "External" ],
         "summary": "Get external servics in the system",
-        "operationId": "getExternals",
+        "operationId": "getExternal",
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
