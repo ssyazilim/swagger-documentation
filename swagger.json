@@ -244,7 +244,7 @@
         "summary": "Get a agreement from the system",
         "operationId": "getAgreement",
         "parameters": [
-          { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } },
+          { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr", "enum": ["en", "tr"] } },
           { "in": "path", "name": "name", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
@@ -802,7 +802,7 @@
         "tags": [ "Category" ],
         "summary": "Get Google categories from the system",
         "operationId": "getGoogleCategories",
-        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } }],
+        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr", "enum": ["en", "tr"] } } ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
@@ -1270,12 +1270,70 @@
         }
       }
     },
+    "/public/payment/check/{paymentId}": {
+      "get": {
+        "tags": [ "Payment" ],
+        "summary": "Check payment for the IYZICO Service",
+        "operationId": "checkPaymentId",
+        "parameters": [ { "in": "path", "name": "paymentId", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/payment/IYZICO/{locale}": {
+      "post": {
+        "tags": [ "Payment" ],
+        "summary": "Check HTML Code for IYZICO Service",
+        "operationId": "checkHTMLCodeForIYZICO",
+        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr", "enum": ["en", "tr"] } } ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/checkHTMLForIyzico" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/checkHTMLForIyzico" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/checkHTMLForIyzico" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/payment/IYZICO/{token}/{locale}": {
+      "post": {
+        "tags": [ "Payment" ],
+        "summary": "Complete payment for IYZICO Service",
+        "operationId": "completePaymentForIyzico",
+        "parameters": [
+          { "in": "path", "name": "token", "required": true, "schema": { "type": "string" } },
+          { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr", "enum": ["en", "tr"] } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/payments": {
+      "get": {
+        "tags": [ "Payment" ],
+        "summary": "Get User Payments in the system",
+        "operationId": "getPaymentsForTheUser",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
     "/public/payment/{locale}": {
       "post": {
         "tags": [ "Payment" ],
         "summary": "Add payment to the IYZICO Service",
         "operationId": "paymentForUser",
-        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } }],
+        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr", "enum": ["en", "tr"] } } ],
         "requestBody": {
           "content": {
             "application/json": { "schema": { "$ref": "#/components/schemas/addPayment" } },
@@ -1295,7 +1353,7 @@
         "tags": [ "Payment" ],
         "summary": "Check HTML Code for the 3D Service",
         "operationId": "check3DForUser",
-        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } }],
+        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr", "enum": ["en", "tr"] } } ],
         "requestBody": {
           "content": {
             "application/json": { "schema": { "$ref": "#/components/schemas/addPayment" } },
@@ -1316,7 +1374,7 @@
         "summary": "Complete payment for 3D Service",
         "operationId": "completePayment3DForIyzico",
         "parameters": [
-          { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } },
+          { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr", "enum": ["en", "tr"] } },
           { "in": "path", "name": "paymentId", "required": true, "schema": { "type": "string" } }
         ],
         "requestBody": {
@@ -1376,7 +1434,7 @@
         "tags": [ "Payment" ],
         "summary": "Cancel payment for the suddenly payment",
         "operationId": "cancelPayment",
-        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string" } }],
+        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr", "enum": ["en", "tr"] } } ],
         "requestBody": {
           "content": {
             "application/json": { "schema": { "$ref": "#/components/schemas/cancelPayment" } },
@@ -2694,6 +2752,24 @@
           "name": { "type": "string" },
           "parent": { "type": "string" },
           "tree": { "type": "array", "example": [ "root" ], "items": { "type": "string" } }
+        }
+      },
+      "checkHTMLForIyzico": {
+        "type": "object",
+        "required": [ "paymentCard", "buyer", "shippingAddress", "billingAddress", "basketItems" ],
+        "properties": {
+          "paymentCard": {
+            "type": "object",
+            "required": [ "name", "surname" ],
+            "properties": {
+              "name": { "type": "string", "example": "Ali" },
+              "surname": { "type": "string", "example": "SARI" }
+            }
+          },
+          "buyer": { "$ref": "#/components/schemas/buyer" },
+          "shippingAddress": { "$ref": "#/components/schemas/shippingAddress" },
+          "billingAddress": { "$ref": "#/components/schemas/billingAddress" },
+          "basketItems": { "$ref": "#/components/schemas/basketItems" }
         }
       },
       "checkInstallment": {
