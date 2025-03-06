@@ -11,7 +11,7 @@
   "externalDocs": { "description": "Find out more about Swagger", "url": "https://swagger.io" },
   "servers": [
     { "url": "http://localhost:5000/api" },
-    { "url": "http://192.168.1.9:5000/api" },
+    { "url": "http://159.146.116.95:5001/api" },
     { "url": "https://api.ulusanelektrik.com/api" }
   ],
   "tags": [
@@ -24,6 +24,7 @@
     { "name": "Cart", "description": "Carts for the system" },
     { "name": "Category", "description": "Categories for the system" },
     { "name": "Company", "description": "Company information for the User" },
+    { "name": "Country State City", "description": "Country State City for the User" },
     { "name": "Currency", "description": "Currencies for the system" },
     { "name": "External", "description": "External Services for the system" },
     { "name": "Form", "description": "Form process for users" },
@@ -1003,6 +1004,45 @@
           }
         },
         "security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+
+    "/public/country": {
+      "get": {
+        "tags": [ "Country State City" ],
+        "summary": "Get a Countries for the user",
+        "operationId": "getCountry",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/country/{countryCode}": {
+      "get": {
+        "tags": [ "Country State City" ],
+        "summary": "Get a States for the user",
+        "operationId": "getState",
+        "parameters": [ { "in": "path", "name": "countryCode", "required": true, "schema": { "type": "string", "example": "TR" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/country/{countryCode}/city/{cityCode}": {
+      "get": {
+        "tags": [ "Country State City" ],
+        "summary": "Get a Cities for the user",
+        "operationId": "getCity",
+        "parameters": [
+          { "in": "path", "name": "countryCode", "required": true, "schema": { "type": "string", "example": "TR" } },
+          { "in": "path", "name": "cityCode", "required": true, "schema": { "type": "string", "example": "06" } }
+        ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
