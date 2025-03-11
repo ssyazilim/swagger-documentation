@@ -11,7 +11,7 @@
   "externalDocs": { "description": "Find out more about Swagger", "url": "https://swagger.io" },
   "servers": [
     { "url": "http://localhost:5000/api" },
-    { "url": "http://159.146.116.95:5001/api" },
+    { "url": "https://api.cibertrade.net/api" },
     { "url": "https://api.ulusanelektrik.com/api" }
   ],
   "tags": [
