@@ -1092,10 +1092,22 @@
       }
     },
 
+    "/public/external/{key}": {
+      "get": {
+        "tags": [ "External" ],
+        "summary": "Get external service key in the system",
+        "operationId": "getExternalKey",
+        "parameters": [ { "in": "path", "name": "key", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
     "/admin/external": {
       "get": {
         "tags": [ "External" ],
-        "summary": "Get external servics in the system",
+        "summary": "Get external services in the system",
         "operationId": "getExternal",
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
