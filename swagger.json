@@ -1101,7 +1101,9 @@
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
         }
-      },
+      }
+    },
+    "/admin/external": {
       "post": {
         "tags": [ "External" ],
         "summary": "Add a new external to the system",
