@@ -1573,11 +1573,23 @@
         }
       }
     },
-    "/public/products/XML": {
+    "/public/products/XML/google": {
       "get": {
         "tags": [ "Product" ],
-        "summary": "Get all products in the system with XML format",
-        "operationId": "getProductsXML",
+        "summary": "Get all products in the system with Google XML format",
+        "operationId": "getProductsGoogleXML",
+        "parameters": [],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+	"/public/products/XML/yandex": {
+      "get": {
+        "tags": [ "Product" ],
+        "summary": "Get all products in the system with Yandex XML format",
+        "operationId": "getProductsYandexXML",
         "parameters": [],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
