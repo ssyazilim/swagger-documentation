@@ -2816,7 +2816,8 @@
         "properties": {
           "name": { "type": "string" },
           "parent": { "type": "string" },
-          "tree": { "type": "array", "example": [ "root" ], "items": { "type": "string" } }
+          "tree": { "type": "array", "example": [ "root" ], "items": { "type": "string" } },
+		  "categoryI10n": { "type": "string", "example": "{'id':'543586','name':'543586 - Kıyafet ve Aksesuarlar > Kıyafet Aksesuarları > Bandanalar ve Eşarplar > Bandana Örtüleri'}" }
         }
       },
       "checkHTMLForIyzico": {
@@ -3202,12 +3203,10 @@
           "price": { "$ref": "#/components/schemas/price" },
           "stockQuantity": { "type": "number", "example": 100 },
           "desi": { "type": "number", "example": 2 },
-          "brand": { "type": "string", "example": "Test" },
+          "brand": { "type": "string", "example": "67d15594f49546e19c4f2342" },
           "gtin": { "type": "string", "example": "0123456789012" },
           "sku": { "type": "string", "example": "0123456" },
-          "category": { "type": "string", "example": "Test" },
-          "categoryTree": { "type": "array", "example": [ "root", "Test" ], "items": { "type": "string" } },
-          "categoryI10n": { "type": "string", "example": "5608" },
+          "category": { "type": "string", "example": "67f38474e1d5b52fee02dcba" },
           "properties": { "$ref": "#/components/schemas/productProperties" }
         }
       },
