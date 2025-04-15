@@ -1298,8 +1298,8 @@
         "summary": "Get User payment in system",
         "operationId": "getPayment",
         "parameters": [
-          { "in": "path", "name": "orderId", "schema": { "type": "string" } },
-          { "in": "path", "name": "orderToken", "schema": { "type": "string" } }
+          { "in": "query", "name": "orderId", "schema": { "type": "string" } },
+          { "in": "query", "name": "orderToken", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
