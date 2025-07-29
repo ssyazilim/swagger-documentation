@@ -803,12 +803,12 @@
         }
       }
     },
-    "/admin/categories/google/{locale}": {
+    "/public/categories/google/{locale}": {
       "get": {
         "tags": [ "Category" ],
         "summary": "Get Google categories from the system",
         "operationId": "getGoogleCategories",
-        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr", "enum": ["en", "tr"] } } ],
+        "parameters": [ { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr-TR", "enum": ["en-US", "tr-TR"] } } ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
