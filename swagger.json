@@ -1084,18 +1084,6 @@
         "security": [ { "JWT": [] } ]
       }
     },
-    "/admin/currencies": {
-      "post": {
-        "tags": [ "Currency" ],
-        "summary": "Update all currency informations in the system and give back to users",
-        "operationId": "listAndCreateCurrency",
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
 
     "/public/external": {
       "get": {
