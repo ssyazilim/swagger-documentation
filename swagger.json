@@ -34,6 +34,7 @@
     { "name": "External", "description": "External Services for the system" },
     { "name": "Form", "description": "Form process for users" },
     { "name": "Google Cloud", "description": "Google cloud operations for the system" },
+    { "name": "Minio S3", "description": "Simple Storage Service for the system" },
     { "name": "Payment", "description": "User payment information" },
     { "name": "Product", "description": "Products for the system" },
     { "name": "Product Variant", "description": "Variants for the products" },
@@ -1276,6 +1277,180 @@
           { "in": "query", "name": "metric", "required": true, "schema": { "type": "string", "example": "activeUsers" } },
           { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T00:00:00.000Z" } },
           { "in": "query", "name": "endDate", "required": false, "schema": { "type": "boolean", "example": "2024-12-15T23:59:59.999Z" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
+    "/admin/minio/buckets": {
+      "get": {
+        "tags": [ "Minio S3" ],
+        "summary": "Get all buckets in the system",
+        "operationId": "getBuckets",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/bucket/{bucketName}": {
+      "get": {
+        "tags": [ "Minio S3" ],
+        "summary": "Get bucket information in the system",
+        "operationId": "getBucket",
+        "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "post": {
+        "tags": [ "Minio S3" ],
+        "summary": "Add bucket for the system",
+        "operationId": "addBucket",
+        "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Minio S3" ],
+        "summary": "Delete empty bucket for the system",
+        "operationId": "deleteBucket",
+        "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/bucket-operations/incompleted-uploads": {
+      "get": {
+        "tags": [ "Minio S3" ],
+        "summary": "Get partially uploaded objects in a bucket",
+        "operationId": "getIncompletedUploads",
+        "parameters": [
+          { "in": "query", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } },
+          { "in": "query", "name": "prefix", "required": false, "schema": { "type": "string", "example": "" }, "description": "Where to start => .../../" },
+          { "in": "query", "name": "recursive", "required": false, "schema": { "type": "boolean", "example": "false" }, "description": "Include to the subfolders" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/bucket-operations": {
+      "get": {
+        "tags": [ "Minio S3" ],
+        "summary": "Lists all objects in a bucket using S3 listing objects V2 API",
+        "operationId": "listObjects",
+        "parameters": [
+          { "in": "query", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } },
+          { "in": "query", "name": "prefix", "required": false, "schema": { "type": "string", "example": "" }, "description": "Where to start => .../../" },
+          { "in": "query", "name": "recursive", "required": false, "schema": { "type": "boolean", "example": "false" }, "description": "Include to the subfolders" },
+          { "in": "query", "name": "startAfter", "required": false, "schema": { "type": "string", "example": "" }, "description": "You can start from a point in an alphabetical directory => e.txt | k.txt" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/bucket-version/{bucketName}": {
+      "get": {
+        "tags": [ "Minio S3" ],
+        "summary": "Get Versioning state of a Bucket",
+        "operationId": "getBucketVersion",
+        "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/bucket-version": {
+      "post": {
+        "tags": [ "Minio S3" ],
+        "summary": "Add bucket version for the bucket",
+        "operationId": "addBucketVersion",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addBucketVersion" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addBucketVersion" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addBucketVersion" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/bucket-config/{bucketName}": {
+      "get": {
+        "tags": [ "Minio S3" ],
+        "summary": "Get Lifecycle Configuration of a Bucket",
+        "operationId": "getBucketConfig",
+        "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Minio S3" ],
+        "summary": "Delete Lifecycle Configuration of a Bucket",
+        "operationId": "deleteBucketConfig",
+        "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/bucket-config": {
+      "post": {
+        "tags": [ "Minio S3" ],
+        "summary": "Set Lifecycle Configuration on a Bucket",
+        "operationId": "addBucketConfig",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addBucketConfig" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addBucketConfig" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addBucketConfig" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/objects": {
+      "get": {
+        "tags": [ "Minio S3" ],
+        "summary": "Get a specific object",
+        "operationId": "getObject",
+        "parameters": [
+          { "in": "query", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } },
+          { "in": "query", "name": "objectName", "required": true, "schema": { "type": "string", "example": "files/sample.txt" } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
@@ -2569,6 +2744,55 @@
       "addAgreements": { "type": "array", "items": { "$ref": "#/components/schemas/agreement" } },
       "addBlogs": { "type": "array", "items": { "$ref": "#/components/schemas/blog" } },
       "addBrands": { "type": "array", "items": { "$ref": "#/components/schemas/brand" } },
+      "addBucketConfig": {
+        "type": "object",
+        "required": [ "bucketName", "properties" ],
+        "properties": {
+          "bucketName": { "type": "string", "example": "test" },
+          "properties": {
+            "type": "object",
+            "required": [ "Rule" ],
+            "properties": {
+              "Rule": {
+                "type": "object",
+                "required": [ "ID", "Status", "Filter", "Expiration" ],
+                "properties": {
+                  "ID": { "type": "string", "example": "Transition and Expiration Rule" },
+                  "Status": { "type": "string", "example": "Enabled", "enum": ["Enabled", "Suspended"] },
+                  "Filter": {
+                    "type": "object",
+                    "required": [ "Prefix" ],
+                    "properties": {
+                      "Prefix": { "type": "string", "example": "" }
+                    }
+                  },
+                  "Expiration": {
+                    "type": "object",
+                    "required": [ "Days" ],
+                    "properties": {
+                      "Days": { "type": "string", "example": "3650" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "addBucketVersion": {
+        "type": "object",
+        "required": [ "bucketName", "properties" ],
+        "properties": {
+          "bucketName": { "type": "string", "example": "test" },
+          "properties": {
+            "type": "object",
+            "required": [ "Status" ],
+            "properties": {
+              "Status": { "type": "string", "example": "Enabled", "enum": ["Enabled", "Suspended"] }
+            }
+          }
+        }
+      },
       "addCard": {
         "type": "object",
         "required": [ "cardAlias", "cardHolderName", "cardNumber", "expireMonth", "expireYear", "email" ],
