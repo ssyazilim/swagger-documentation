@@ -34,7 +34,8 @@
     { "name": "External", "description": "External Services for the system" },
     { "name": "Form", "description": "Form process for users" },
     { "name": "Google Cloud", "description": "Google cloud operations for the system" },
-    { "name": "Minio S3", "description": "Simple Storage Service for the system" },
+    { "name": "Minio Bucket S3", "description": "Simple Storage Service for the bucket operations" },
+    { "name": "Minio Object S3", "description": "Simple Storage Service for the object operations" },
     { "name": "Payment", "description": "User payment information" },
     { "name": "Product", "description": "Products for the system" },
     { "name": "Product Variant", "description": "Variants for the products" },
@@ -1288,7 +1289,7 @@
 
     "/admin/minio/buckets": {
       "get": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Bucket S3" ],
         "summary": "Get all buckets in the system",
         "operationId": "getBuckets",
         "responses": {
@@ -1300,7 +1301,7 @@
     },
     "/admin/minio/bucket/{bucketName}": {
       "get": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Bucket S3" ],
         "summary": "Get bucket information in the system",
         "operationId": "getBucket",
         "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } }],
@@ -1311,7 +1312,7 @@
         "security": [ { "JWT": [] } ]
       },
       "post": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Bucket S3" ],
         "summary": "Add bucket for the system",
         "operationId": "addBucket",
         "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } } ],
@@ -1322,7 +1323,7 @@
         "security": [ { "JWT": [] } ]
       },
       "delete": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Bucket S3" ],
         "summary": "Delete empty bucket for the system",
         "operationId": "deleteBucket",
         "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } }],
@@ -1335,7 +1336,7 @@
     },
     "/admin/minio/bucket-operations/incompleted-uploads": {
       "get": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Bucket S3" ],
         "summary": "Get partially uploaded objects in a bucket",
         "operationId": "getIncompletedUploads",
         "parameters": [
@@ -1352,7 +1353,7 @@
     },
     "/admin/minio/bucket-operations": {
       "get": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Bucket S3" ],
         "summary": "Lists all objects in a bucket using S3 listing objects V2 API",
         "operationId": "listObjects",
         "parameters": [
@@ -1370,7 +1371,7 @@
     },
     "/admin/minio/bucket-version/{bucketName}": {
       "get": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Bucket S3" ],
         "summary": "Get Versioning state of a Bucket",
         "operationId": "getBucketVersion",
         "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } }],
@@ -1383,7 +1384,7 @@
     },
     "/admin/minio/bucket-version": {
       "post": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Bucket S3" ],
         "summary": "Add bucket version for the bucket",
         "operationId": "addBucketVersion",
         "requestBody": {
@@ -1402,7 +1403,7 @@
     },
     "/admin/minio/bucket-config/{bucketName}": {
       "get": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Bucket S3" ],
         "summary": "Get Lifecycle Configuration of a Bucket",
         "operationId": "getBucketConfig",
         "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } }],
@@ -1426,7 +1427,7 @@
     },
     "/admin/minio/bucket-config": {
       "post": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Bucket S3" ],
         "summary": "Set Lifecycle Configuration on a Bucket",
         "operationId": "addBucketConfig",
         "requestBody": {
@@ -1443,15 +1444,102 @@
         "security": [ { "JWT": [] } ]
       }
     },
-    "/admin/minio/objects": {
+
+    "/admin/minio/object/check-metadata": {
       "get": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Object S3" ],
+        "summary": "Get metadata of a specific object",
+        "operationId": "getObjectMetadata",
+        "parameters": [
+          { "in": "query", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } },
+          { "in": "query", "name": "objectName", "required": true, "schema": { "type": "string", "example": "1.jpg" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/object": {
+      "get": {
+        "tags": [ "Minio Object S3" ],
         "summary": "Get a specific object",
         "operationId": "getObject",
         "parameters": [
           { "in": "query", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } },
-          { "in": "query", "name": "objectName", "required": true, "schema": { "type": "string", "example": "files/sample.txt" } }
+          { "in": "query", "name": "objectName", "required": true, "schema": { "type": "string", "example": "1.jpg" } }
         ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "post": {
+        "tags": [ "Minio Object S3" ],
+        "summary": "Upload file to minio",
+        "operationId": "addObject",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": { "schema": { "$ref": "#/components/schemas/addObject" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Minio Object S3" ],
+        "summary": "Delete a specific object",
+        "operationId": "deleteObject",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteObject" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteObject" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteObject" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/object/delete-objects": {
+      "delete": {
+        "tags": [ "Minio Object S3" ],
+        "summary": "Delete multiple objects",
+        "operationId": "deleteObjects",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteObjects" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteObjects" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteObjects" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/object/copy": {
+      "post": {
+        "tags": [ "Minio Object S3" ],
+        "summary": "Copy an object from one bucket to another",
+        "operationId": "copyObject",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/copyObject" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/copyObject" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/copyObject" } }
+          }
+        },
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
@@ -2842,6 +2930,15 @@
           "tawkTo": { "$ref": "#/components/schemas/externalTawkTo" }
         }
       },
+      "addObject": {    
+        "type": "object",
+        "required": [ "bucketName", "objectName", "file" ],
+        "properties": {
+          "bucketName": { "type": "string", "example": "test" },
+          "objectName": { "type": "string", "example": "profile-photo.jpg", "description": "Object name to be stored in minio" },
+          "file": { "type": "string", "format": "binary", "description": "File to upload" }
+        }
+      },
       "addPackage": {
         "type": "object",
         "required": [ "content", "client", "collect" ],
@@ -3192,6 +3289,15 @@
           "fileName": { "type": "string" }
         }
       },
+      "copyObject": {
+        "type": "object",
+        "required": [ "targetBucket", "targetObject", "sourceObject" ],
+        "properties": {
+          "targetBucket": { "type": "string", "example": "test1" },
+          "targetObject": { "type": "string", "example": "1.jpg" },
+          "sourceObject": { "type": "string", "example": "test2/images/1.jpg" }
+        }
+      },
       "customer": {
         "type": "object",
         "required": [ "name", "surname", "email", "phoneNumber", "password", "role", "isActivated" ],
@@ -3219,6 +3325,22 @@
         "required": [ "selectedIds" ],
         "properties": {
           "selectedIds": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "deleteObject": {
+        "type": "object",
+        "required": [ "bucketName", "objectName" ],
+        "properties": {
+          "bucketName": { "type": "string", "example": "test" },
+          "objectName": { "type": "string", "example": "1.jpg" }
+        }
+      },
+      "deleteObjects": {
+        "type": "object",
+        "required": [ "bucketName", "objectNames" ],
+        "properties": {
+          "bucketName": { "type": "string", "example": "test" },
+          "objectNames": { "type": "array", "items": { "type": "string", "example": ["1.jpg", "2.jpg", "3.jpg"] } }
         }
       },
       "deleteUser": {
