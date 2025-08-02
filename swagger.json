@@ -1547,6 +1547,63 @@
         "security": [ { "JWT": [] } ]
       }
     },
+    "/admin/minio/object/presigned-url": {
+      "post": {
+        "tags": [ "Minio Object S3" ],
+        "summary": "Generates a presigned URL for the provided HTTP method",
+        "operationId": "getPresignedUrl",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/presignedUrl" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/presignedUrl" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/presignedUrl" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/object/presigned-get-object": {
+      "post": {
+        "tags": [ "Minio Object S3" ],
+        "summary": "Generates a presigned URL for HTTP GET operations",
+        "operationId": "getPresignedGetObject",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/presignedGetObject" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/presignedGetObject" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/presignedGetObject" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/minio/object/presigned-put-object": {
+      "post": {
+        "tags": [ "Minio Object S3" ],
+        "summary": "Generates a presigned URL for HTTP PUT operations",
+        "operationId": "getPresignedPutObject",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/presignedGetObject" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/presignedGetObject" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/presignedGetObject" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
 
     "/public/payment": {
       "get": {
@@ -3520,6 +3577,25 @@
           "cvc": { "type": "string", "example": "704" },
           "installment": { "type": "number", "example": 1 },
           "registerCard": { "type": "number", "example": 0 }
+        }
+      },
+      "presignedUrl": {
+        "type": "object",
+        "required": [ "httpMethod", "bucketName", "objectName", "expiresIn" ],
+        "properties": {
+          "httpMethod": { "type": "string", "example": "GET" },
+          "bucketName": { "type": "string", "example": "test" },
+          "objectName": { "type": "string", "example": "1.jpg" },
+          "expireTime": { "type": "number", "example": 900 }
+        }
+      },
+      "presignedGetObject": {
+        "type": "object",
+        "required": [ "bucketName", "objectName", "expiresIn" ],
+        "properties": {
+          "bucketName": { "type": "string", "example": "test" },
+          "objectName": { "type": "string", "example": "1.jpg" },
+          "expireTime": { "type": "number", "example": 900 }
         }
       },
       "price": {
