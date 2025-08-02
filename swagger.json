@@ -1414,7 +1414,7 @@
         "security": [ { "JWT": [] } ]
       },
       "delete": {
-        "tags": [ "Minio S3" ],
+        "tags": [ "Minio Bucket S3" ],
         "summary": "Delete Lifecycle Configuration of a Bucket",
         "operationId": "deleteBucketConfig",
         "parameters": [ { "in": "path", "name": "bucketName", "required": true, "schema": { "type": "string", "example": "test" } }],
@@ -3586,7 +3586,7 @@
           "httpMethod": { "type": "string", "example": "GET" },
           "bucketName": { "type": "string", "example": "test" },
           "objectName": { "type": "string", "example": "1.jpg" },
-          "expireTime": { "type": "number", "example": 900 }
+          "expireTime": { "type": "number", "example": 360 }
         }
       },
       "presignedGetObject": {
@@ -3595,7 +3595,7 @@
         "properties": {
           "bucketName": { "type": "string", "example": "test" },
           "objectName": { "type": "string", "example": "1.jpg" },
-          "expireTime": { "type": "number", "example": 900 }
+          "expireTime": { "type": "number", "example": 360 }
         }
       },
       "price": {
