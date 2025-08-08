@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "SS-Ecommerce - API - OpenAPI 3.0",
-    "description": "",
+    "description": "The SS-Ecommerce API, built on the OpenAPI 3.0 specification, provides a standardized, language-agnostic interface for interacting with an e-commerce platform.",
     "termsOfService": "https://swagger.io/terms/",
     "contact": { "email": "admin@ssyazilim.com" },
     "license": { "name": "MIT", "url": "https://opensource.org/licenses/MIT" },
@@ -944,22 +944,6 @@
         "security": [ { "JWT": [] } ]
       }
     },
-    "/admin/company/image/{type}": {
-      "post": {
-        "tags": [ "Company" ],
-        "summary": "User can be update company logo or favicon using this api",
-        "operationId": "updateImage",
-        "parameters": [ { "in": "path", "name": "type", "required": true, "schema": { "type": "string" } } ],
-        "requestBody": {
-          "content": { "multipart/form-data": { "schema": { "$ref": "#/components/schemas/image" } } }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
     "/admin/company/payment/{companyId}": {
       "post": {
         "tags": [ "Company" ],
@@ -1286,6 +1270,25 @@
         "security": [ { "JWT": [] } ]
       }
     },
+    "/admin/google-cloud/gemini-prompt": {
+      "post": {
+        "tags": [ "Google Cloud" ],
+        "summary": "Send a prompt to Gemini AI",
+        "operationId": "sendGeminiPrompt",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/geminiPrompt" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/geminiPrompt" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/geminiPrompt" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
 
     "/admin/minio/buckets": {
       "get": {
@@ -1509,7 +1512,7 @@
         "security": [ { "JWT": [] } ]
       }
     },
-    "/admin/minio/object/delete-objects": {
+    "/admin/minio/object/objects": {
       "delete": {
         "tags": [ "Minio Object S3" ],
         "summary": "Delete multiple objects",
@@ -1922,34 +1925,6 @@
         }
       }
     },
-    "/public/product/addTempImage": {
-      "post": {
-        "tags": [ "Product" ],
-        "summary": "Provides the FE side with a temporary endpoint for image preview",
-        "operationId": "previewImage",
-        "requestBody": {
-          "content": { "multipart/form-data": { "schema": { "$ref": "#/components/schemas/image" } } }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-    "/public/product/removeTempImage/{imageName}": {
-      "delete": {
-        "tags": [ "Product" ],
-        "summary": "Delete a removed Image from dummy image data for BE Side",
-        "operationId": "deleteImage",
-        "parameters": [ { "in": "path", "name": "imageName", "required": true, "schema": { "type": "string" } }],
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
     "/admin/products/count": {
       "get": {
         "tags": [ "Product" ],
@@ -2029,26 +2004,6 @@
             "application/json": { "schema": { "$ref": "#/components/schemas/editProduct" } },
             "application/xml": { "schema": { "$ref": "#/components/schemas/editProduct" } },
             "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/editProduct" } }
-          }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-    "/admin/product/removeProductImage/{productId}": {
-      "delete": {
-        "tags": [ "Product" ],
-        "summary": "Delete a image from product images for BE Side",
-        "operationId": "deleteProductImage",
-        "parameters": [ { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } }],
-        "requestBody": {
-          "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/removeProductImage" } },
-            "application/xml": { "schema": { "$ref": "#/components/schemas/removeProductImage" } },
-            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/removeProductImage" } }
           }
         },
         "responses": {
@@ -2740,21 +2695,6 @@
             "application/xml": { "schema": { "$ref": "#/components/schemas/deleteUser" } },
             "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteUser" } }
           }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-    "/public/user/update-profile-image": {
-      "post": {
-        "tags": [ "User" ],
-        "summary": "User can be update profile image using this api",
-        "operationId": "updateProfileImage",
-        "requestBody": {
-          "content": { "multipart/form-data": { "schema": { "$ref": "#/components/schemas/image" } } }
         },
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
@@ -3489,6 +3429,13 @@
           "file": { "type": "string", "format": "binary" }
         }
       },
+      "geminiPrompt": {
+        "type": "object",
+        "required": [ "prompt" ],
+        "properties": {
+          "prompt": { "type": "string", "example": "Write a 25-word poem." }
+        }
+      },
       "image": {
         "type": "object",
         "properties": {
@@ -3499,7 +3446,7 @@
         "type": "object",
         "properties": {
           "staticImages": { "type": "array", "example": [] },
-          "dynamicImages": { "type": "string", "example": "https://placehold.co/600x400/000000/FFF?text=Image+1,\\nhttps://placehold.co/600x400/000000/FFF?text=Image+2" }
+          "dynamicImages": { "type": "array", "example": ["https://placehold.co/600x400/000000/FFF?text=Image+1,\\nhttps://placehold.co/600x400/000000/FFF?text=Image+2"] }
         }
       },
       "likeBlog": {
@@ -3630,13 +3577,6 @@
         "properties": {
           "hidePrice": { "type": "boolean", "example": false },
           "isFeatured": { "type": "boolean", "example": false }
-        }
-      },
-      "removeProductImage": {
-        "type": "object",
-        "required": [ "imageName" ],
-        "properties": {
-          "name": { "type": "string", "example": "image_1712064226462-926571863.png" }
         }
       },
       "savePayment": {
