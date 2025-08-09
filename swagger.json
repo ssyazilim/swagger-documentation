@@ -2597,6 +2597,21 @@
       }
     },
     "/admin/translation": {
+      "get": {
+        "tags": [ "Translation" ],
+        "summary": "Get a specific key translation in the system",
+        "operationId": "getTranslationByKey",
+        "parameters": [
+          { "in": "query", "name": "locale", "required": true, "schema": { "type": "string", "example": "tr" } },
+          { "in": "query", "name": "name", "required": true, "schema": { "type": "string", "example": "web" } },
+          { "in": "query", "name": "key", "required": true, "schema": { "type": "string", "example": "private_forms_contactMe_contactWapp" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
       "post": {
         "tags": [ "Translation" ],
         "summary": "Add a new translation to system",
