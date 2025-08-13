@@ -3002,7 +3002,7 @@
             "variantsType": { "$ref": "#/components/schemas/variantsType" },
             "variants": {
               "type": "array",
-              "example": ["66f29aefff9245b28d05482c", "66f29aefff9245b28d05482d"]
+              "items": { "type": "string", "example": ["66f29aefff9245b28d05482c", "66f29aefff9245b28d05482d"] }
             }
           }
         }
@@ -3142,8 +3142,8 @@
         "properties": {
           "name": { "type": "string" },
           "parent": { "type": "string" },
-          "tree": { "type": "array", "example": [ "root" ], "items": { "type": "string" } },
-		  "categoryI10n": { "type": "string", "example": "{'id':'543586','name':'543586 - Kıyafet ve Aksesuarlar > Kıyafet Aksesuarları > Bandanalar ve Eşarplar > Bandana Örtüleri'}" }
+          "tree": { "type": "array", "items": { "type": "string", "example": [ "root" ] } },
+		      "categoryI10n": { "type": "string", "example": "{'id':'543586','name':'543586 - Kıyafet ve Aksesuarlar > Kıyafet Aksesuarları > Bandanalar ve Eşarplar > Bandana Örtüleri'}" }
         }
       },
       "checkHTMLForIyzico": {
@@ -3319,7 +3319,7 @@
           "email": { "type": "string", "example": "senocak-a@hotmail.com" },
           "phoneNumber": { "type": "string", "example": "905425496142" },
           "password": { "type": "string", "example": "Passw0rd" },
-          "role": { "type": "array", "example": ["ROLE_USER"] },
+          "role": { "type": "array", "items": { "type": "string" }, "example": ["ROLE_USER"] },
           "isActivated": { "type": "boolean", "example": true }
         }
       },
@@ -3460,8 +3460,8 @@
       "images": {
         "type": "object",
         "properties": {
-          "staticImages": { "type": "array", "example": [] },
-          "dynamicImages": { "type": "array", "example": ["https://placehold.co/600x400/000000/FFF?text=Image+1,\\nhttps://placehold.co/600x400/000000/FFF?text=Image+2"] }
+          "staticImages": { "type": "array", "items": { "type": "string", "example": [] } },
+          "dynamicImages": { "type": "array", "items": { "type": "string", "example": ["https://placehold.co/600x400/000000/FFF?text=Image+1,\\nhttps://placehold.co/600x400/000000/FFF?text=Image+2"] } }
         }
       },
       "likeBlog": {
@@ -3750,7 +3750,7 @@
           "required": [ "name", "variants" ],
           "properties": {
             "name": { "type": "string", "example": "Renk" },
-            "variants": { "type": "array", "example": [ "Siyah" ], "items": { "type": "string" } }
+            "variants": { "type": "array", "items": { "type": "string", "example": [ "Siyah" ] } }
           }
         }
       },
