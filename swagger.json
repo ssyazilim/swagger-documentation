@@ -14,7 +14,6 @@
     { "url": "https://api.07kardeslertarim.com/api" },
     { "url": "https://api.blueborz.com/api" },
     { "url": "https://api.chemb2b.com.tr/api" },
-    { "url": "https://api.cibertrade.net/api" },
     { "url": "https://api.opiaheart.com/api" },
     { "url": "https://api.sagmanhurda.com/api" },
     { "url": "https://api.ulusanelektrik.com/api" }
@@ -42,6 +41,7 @@
     { "name": "Question", "description": "Questions for the product" },
     { "name": "Review", "description": "Reviews for the product" },
     { "name": "Shipping", "description": "Shipping calculations for the system" },
+    { "name": "Theme", "description": "Theme settings for the product" },
     { "name": "Translation", "description": "Translations for the system" },
     { "name": "User", "description": "User process for users" }
 
@@ -2544,6 +2544,57 @@
       }
     },
 
+    "/public/theme": {
+      "get": {
+        "tags": [ "Theme" ],
+        "summary": "Get theme settings in the system",
+        "operationId": "getTheme",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/theme": {
+      "post": {
+        "tags": [ "Theme" ],
+        "summary": "Add a new theme settings for the system",
+        "operationId": "addTheme",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addTheme" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addTheme" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addTheme" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/theme/{themeId}": {
+      "patch": {
+        "tags": [ "Theme" ],
+        "summary": "Update a theme properties for the system",
+        "operationId": "updateTheme",
+        "parameters": [ { "in": "path", "name": "themeId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addTheme" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addTheme" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addTheme" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
     "/public/translation/{locale}/{name}": {
       "get": {
         "tags": [ "Translation" ],
@@ -2942,7 +2993,7 @@
           "tawkTo": { "$ref": "#/components/schemas/externalTawkTo" }
         }
       },
-      "addObject": {    
+      "addObject": {
         "type": "object",
         "required": [ "bucketName", "objectName", "file" ],
         "properties": {
@@ -3022,6 +3073,28 @@
           "status": { "type": "number", "example": 0 },
           "rating": { "type": "number", "example": 5 },
           "content": { "type": "string", "example": "Harika bir ürün. Kesinlikle tavsiye ederim." }
+        }
+      },
+      "addTheme": {
+        "type": "object",
+        "required": [ "homePage" ],
+        "properties": {
+          "homePage": {
+            "type": "object",
+            "required": [ "category", "categoryPreview", "cta", "feature", "hero", "logoCloud", "newsLetter", "slider", "stat", "teamSection", "testimonial" ],
+            "properties": {
+              "category": { "type": "boolean", "example": true },
+              "categoryPreview": { "type": "boolean", "example": true },
+              "cta": { "type": "string", "example": true },
+              "feature": { "type": "string", "example": true },
+              "hero": { "type": "string", "example": true },
+              "logoCloud": { "type": "string", "example": true },
+              "newsLetter": { "type": "string", "example": true },
+              "slider": { "type": "string", "example": true },
+              "stat": { "type": "string", "example": true },
+              "teamSection": { "type": "string", "example": true }
+            }
+          }
         }
       },
       "addToCart": {
