@@ -11,11 +11,10 @@
   "externalDocs": { "description": "Find out more about Swagger", "url": "https://swagger.io" },
   "servers": [
     { "url": "http://localhost:5000/api" },
-    { "url": "https://api.07kardeslertarim.com/api" },
-    { "url": "https://api.blueborz.com/api" },
-    { "url": "https://api.chemb2b.com.tr/api" },
     { "url": "https://api.opiaheart.com/api" },
     { "url": "https://api.sagmanhurda.com/api" },
+    { "url": "https://api.chemb2b.com.tr/api" },
+    { "url": "https://api.07kardeslertarim.com/api" },
     { "url": "https://api.ulusanelektrik.com/api" }
   ],
   "tags": [
@@ -41,7 +40,6 @@
     { "name": "Question", "description": "Questions for the product" },
     { "name": "Review", "description": "Reviews for the product" },
     { "name": "Shipping", "description": "Shipping calculations for the system" },
-    { "name": "Theme", "description": "Theme settings for the product" },
     { "name": "Translation", "description": "Translations for the system" },
     { "name": "User", "description": "User process for users" }
 
@@ -2544,57 +2542,6 @@
       }
     },
 
-    "/public/theme": {
-      "get": {
-        "tags": [ "Theme" ],
-        "summary": "Get theme settings in the system",
-        "operationId": "getTheme",
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        }
-      }
-    },
-    "/admin/theme": {
-      "post": {
-        "tags": [ "Theme" ],
-        "summary": "Add a new theme settings for the system",
-        "operationId": "addTheme",
-        "requestBody": {
-          "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/addTheme" } },
-            "application/xml": { "schema": { "$ref": "#/components/schemas/addTheme" } },
-            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addTheme" } }
-          }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-    "/admin/theme/{themeId}": {
-      "patch": {
-        "tags": [ "Theme" ],
-        "summary": "Update a theme properties for the system",
-        "operationId": "updateTheme",
-        "parameters": [ { "in": "path", "name": "themeId", "required": true, "schema": { "type": "string" } }],
-        "requestBody": {
-          "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/addTheme" } },
-            "application/xml": { "schema": { "$ref": "#/components/schemas/addTheme" } },
-            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addTheme" } }
-          }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-
     "/public/translation/{locale}/{name}": {
       "get": {
         "tags": [ "Translation" ],
@@ -2967,10 +2914,32 @@
         "type": "object",
         "required": [ "name", "address" ],
         "properties": {
-          "name": { "type": "string", "example": "Test" },
-          "baseUrl": { "type": "string", "example": "159.146.116.95:3001" },
+          "name": { "type": "string", "example": "Opia Heart" },
+          "baseUrl": { "type": "string", "example": "https://opiaheart.com" },
+          "logo": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [ "name", "image" ],
+              "properties": {
+                "name": { "type": "string", "example": "ffbc504a6d354e439ee20f998d249624.png" },
+                "image": { "type": "string", "example": "https://minio.ssyazilim.com/images/opiaheart/company/ffbc504a6d354e439ee20f998d249624.png" }
+              }
+            }
+          },
+          "favicon": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [ "name", "image" ],
+              "properties": {
+                "name": { "type": "string", "example": "97f68e2dc923490b8623e7d285105aed.png" },
+                "image": { "type": "string", "example": "https://minio.ssyazilim.com/images/opiaheart/company/97f68e2dc923490b8623e7d285105aed.png" }
+              }
+            }
+          },
           "description": { "type": "string", "example": "Lorem ipsum dolor sit amet" },
-          "timeZone": { "type": "string", "example": "Europe/Istanbul" },
+          "timeZone": { "type": "string", "example": "Ankara" },
           "currency": { "type": "string", "example": "TRY" },
           "address": { "$ref": "#/components/schemas/companyAddress" },
           "socialMedia": { "type": "array", "items": { "$ref": "#/components/schemas/companySocialMedia" } },
@@ -3073,28 +3042,6 @@
           "status": { "type": "number", "example": 0 },
           "rating": { "type": "number", "example": 5 },
           "content": { "type": "string", "example": "Harika bir ürün. Kesinlikle tavsiye ederim." }
-        }
-      },
-      "addTheme": {
-        "type": "object",
-        "required": [ "homePage" ],
-        "properties": {
-          "homePage": {
-            "type": "object",
-            "required": [ "category", "categoryPreview", "cta", "feature", "hero", "logoCloud", "newsLetter", "slider", "stat", "teamSection", "testimonial" ],
-            "properties": {
-              "category": { "type": "boolean", "example": true },
-              "categoryPreview": { "type": "boolean", "example": true },
-              "cta": { "type": "string", "example": true },
-              "feature": { "type": "string", "example": true },
-              "hero": { "type": "string", "example": true },
-              "logoCloud": { "type": "string", "example": true },
-              "newsLetter": { "type": "string", "example": true },
-              "slider": { "type": "string", "example": true },
-              "stat": { "type": "string", "example": true },
-              "teamSection": { "type": "string", "example": true }
-            }
-          }
         }
       },
       "addToCart": {
@@ -3288,12 +3235,12 @@
           "taxNumber": { "type": "string", "example": "" },
           "identityNumber": { "type": "string", "example": "19201414912" },
           "phoneNumber": { "type": "string", "example": "+905556988597" },
-          "email": { "type": "string", "example": "suleymansari@aol.com" },
+          "email": { "type": "string", "example": "no-reply@ssyazilim.com" },
           "country": { "type": "string", "example": "TURKEY" },
           "city": { "type": "string",  "example": "ANTALYA" },
           "district": { "type": "string", "example": "SERIK" },
           "zipCode": { "type": "string", "example": "07500" },
-          "line": { "type": "string", "example": "SARIABALI MAHALLESI, MUFTULER MEVKI, SOKAK:20 NO:3" }
+          "line": { "type": "string", "example": "Sarıabalı Mahallesi, Müftüler Mevkii, Sokak:20 NO:3" }
         }
       },
       "companySocialMedia": {
@@ -3301,7 +3248,7 @@
         "required": [ "name", "link", "icon" ],
         "properties": {
           "name": { "type": "string", "example": "Facebook" },
-          "link": { "type": "string", "example": "https://www.facebook.com/suleyman.sari/" },
+          "link": { "type": "string", "example": "https://www.facebook.com" },
           "icon": { "type": "string", "example": "M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" }
         }
       },
@@ -3310,27 +3257,87 @@
         "required": [ "status", "content" ],
         "properties": {
           "status": { "type": "string", "example": "{'_id':'0','name':'IBAN'}" },
-          "content": { "type": "string", "example": "<p>David Mashadow</p><p>TR66 0011 1000 0000 0075 9822 31</p>" }
+          "content": { "type": "string", "example": "<p>Süleyman Sarı</p><p>TR.. .... .... .... .... .... ..</p>" }
+        }
+      },
+      "companyPropertiesHomePage": {
+        "type": "object",
+        "required": [ "category", "categoryPreview", "cta", "feature", "hero", "logoCloud", "newsLetter", "slider", "stat", "teamSection", "testimonial" ],
+        "properties": {
+          "category": { "type": "boolean", "example": true },
+          "categoryPreview": { "type": "boolean", "example": true },
+          "cta": { "type": "string", "example": true },
+          "feature": { "type": "string", "example": true },
+          "hero": { "type": "string", "example": true },
+          "logoCloud": { "type": "string", "example": true },
+          "newsLetter": { "type": "string", "example": true },
+          "slider": { "type": "string", "example": true },
+          "stat": { "type": "string", "example": true },
+          "teamSection": { "type": "string", "example": true }
+        }
+      },
+      "companyPropertiesPaymentSettings": {
+        "type": "object",
+        "required": [ "cashDiscount", "doorToDoor" ],
+        "properties": {
+          "cashDiscount": { "type": "string", "example": "0" },
+          "doorToDoor": {
+            "type": "object",
+            "required": [ "isEnabled", "minValue", "maxValue" ],
+            "properties": {
+              "isEnabled": { "type": "boolean", "example": false },
+              "minValue": { "type": "number", "example": 0 },
+              "maxValue": { "type": "number", "example": 0 }
+            }
+          }
+        }
+      },
+      "companyPropertiesProductSettings": {
+        "type": "object",
+        "required": [ "callMe", "addFavorites", "notifyWhenPriceDrops", "notifyWhenProductBackInStock", "hideNoStockProducts", "hideReturnPeriod", "selectedProductListing", "taxAmount", "showTaxAmount" ],
+        "properties": {
+          "callMe": { "type": "boolean", "example": true },
+          "addFavorites": { "type": "boolean", "example": true },
+          "notifyWhenPriceDrops": { "type": "boolean", "example": true },
+          "notifyWhenProductBackInStock": { "type": "boolean", "example": true },
+          "hideNoStockProducts": { "type": "boolean", "example": false },
+          "hideReturnPeriod": { "type": "boolean", "example": false },
+          "selectedProductListing": { "type": "string", "example": "{'_id':'4','name':'public_forms_settings_company_config_selectedProductList_5'}" },
+          "taxAmount": { "type": "number", "example": 20 },
+          "showTaxAmount": { "type": "boolean", "example": true }
+        }
+      },
+      "companyPropertiesOrderSettings": {
+        "type": "object",
+        "required": [ "orderPrefix", "orderCanDelete" ],
+        "properties": {
+          "orderPrefix": { "type": "boolean", "example": true },
+          "orderCanDelete": { "type": "boolean", "example": true }
         }
       },
       "companyProperties": {
         "type": "object",
-        "required": [ "cashDiscount" ],
+        "required": [ "paymentMethod", "liveChatMethod", "homePage", "paymentSettings" ],
         "properties": {
-          "cashDiscount": { "type": "string", "example": "0" }
+          "paymentMethod": { "type": "string", "example": "cash" },
+          "liveChatMethod": { "type": "string", "example": "none" },
+          "homePage": { "$ref": "#/components/schemas/companyPropertiesHomePage" },
+          "paymentSettings": { "$ref": "#/components/schemas/companyPropertiesPaymentSettings" },
+          "productSettings": { "$ref": "#/components/schemas/companyPropertiesProductSettings" },
+          "orderSettings": { "$ref": "#/components/schemas/companyPropertiesOrderSettings" }
         }
       },
       "companyMailOptions": {
       "type": "object",
       "required": [ "user", "password", "host", "port", "mainMail", "secondMail" ],
       "properties": {
-        "user": { "type": "string", "example": "no-reply@ssyazilim.com" },
-        "password": { "type": "string", "example": "Passw0rd" },
-        "host": { "type": "string", "example": "mail.ssyazilim.com" },
+        "user": { "type": "string", "example": "handekaya26577@gmail.com" },
+        "password": { "type": "string", "example": "U2FsdGVkX194q/DF4Ca6b7+R0o8Uz3g0tndy+kGN7syatbyAf13TPpEnyJOHP0wh" },
+        "host": { "type": "string", "example": "smtp.gmail.com" },
         "port": { "type": "number", "example": 465 },
-        "mainMail": { "type": "string", "example": "admin@ssyazilim.com" },
-        "secondMail": { "type": "string", "example": "baris.gur@ssyazilim.com" },
-        "from": { "type": "string", "example": "SS-TEST|✉|<erbil.gur@ssyazilim.com>" }
+        "mainMail": { "type": "string", "example": "iletisim@opiaheart.com" },
+        "secondMail": { "type": "string", "example": "support@opiaheart.com" },
+        "from": { "type": "string", "example": "OPIAHEART |✉| <handekaya26577@gmail.com>" }
         }
       },
       "completePayment3D": {
