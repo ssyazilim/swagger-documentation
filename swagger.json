@@ -1954,6 +1954,37 @@
         }
       }
     },
+	"/admin/products/update-sku": {
+	  "get": {
+		"tags": [ "Product" ],
+        "summary": "Update sku for all items in the system",
+        "operationId": "updateSkuForItems",
+		"security": [ { "JWT": [] } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+	  }
+	},
+    "/admin/products/update-tax": {
+      "patch": {
+        "tags": [ "Product" ],
+        "summary": "Update tax for all items in the system",
+        "operationId": "updateTaxForItems",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/updateTax" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/updateTax" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateTax" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
     "/admin/product": {
       "post": {
         "tags": [ "Product" ],
@@ -3793,6 +3824,12 @@
           "status": { "type": "number", "example": 0 },
           "question": { "type": "string", "example": "Çoraplarınızda kullanılan kumaş türleri nelerdir?" },
           "answer": { "type": "string", "example": "Pamuk, yün ve akrilik kullandık." }
+        }
+      },
+      "updateTax": {
+        "type": "object",
+        "properties": {
+          "tax": { "type": "number", "example": 20 }
         }
       },
       "updateTranslation": {
