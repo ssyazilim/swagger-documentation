@@ -84,6 +84,24 @@
     "/public/auth/register-verification": {
       "post": {
         "tags": [ "Authentication" ],
+        "summary": "Check User key in the system",
+        "operationId": "checkUser",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/checkKey" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/checkKey" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/checkKey" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/auth/register-activate": {
+      "post": {
+        "tags": [ "Authentication" ],
         "summary": "Activate User in the system",
         "operationId": "activateUser",
         "requestBody": {
@@ -2851,9 +2869,10 @@
     "schemas": {
       "activateUser": {
         "type": "object",
-        "required": [ "key" ],
+        "required": [ "key", "code" ],
         "properties": {
-          "key": { "type": "string" }
+          "key": { "type": "string" },
+          "code": { "type": "string"}
         }
       },
       "addAddress": {
@@ -3221,6 +3240,13 @@
         "properties": {
           "binNumber": { "type": "string", "example": "531157" },
           "price": { "type": "string", "example": "2500" }
+        }
+      },
+      "checkKey": {
+        "type": "object",
+        "required": [ "key" ],
+        "properties": {
+          "key": { "type": "string" }
         }
       },
       "checkSMTP": {
