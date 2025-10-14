@@ -117,6 +117,24 @@
         }
       }
     },
+    "/public/auth/refresh-code": {
+      "post": {
+        "tags": [ "Authentication" ],
+        "summary": "Refresh code for the activation in the system",
+        "operationId": "refreshCode",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/checkKey" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/checkKey" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/checkKey" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
     "/public/auth/password-reset": {
       "post": {
         "tags": [ "Authentication" ],
