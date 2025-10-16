@@ -32,6 +32,7 @@
     { "name": "External", "description": "External Services for the system" },
     { "name": "Form", "description": "Form process for users" },
     { "name": "Google Cloud", "description": "Google cloud operations for the system" },
+    { "name": "Gsm", "description": "GSM service operations for the system" },
     { "name": "Minio Bucket S3", "description": "Simple Storage Service for the bucket operations" },
     { "name": "Minio Object S3", "description": "Simple Storage Service for the object operations" },
     { "name": "Payment", "description": "User payment information" },
@@ -1316,6 +1317,68 @@
             "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/geminiPrompt" } }
           }
         },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
+    "/public/gsm/send-sms": {
+      "post": {
+        "tags": [ "Gsm" ],
+        "summary": "Send a sms for specific turkish number",
+        "operationId": "sendSMS",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/sendSms" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/sendSms" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/sendSms" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "X-API-KEY": [] } ]
+      }
+    },
+    "/admin/gsm/check-report": {
+      "get": {
+        "tags": [ "Gsm" ],
+        "summary": "List message headers for send sms",
+        "operationId": "listHeaders",
+        "parameters": [
+          { "in": "query", "name": "jobId", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/gsm/check-balance": {
+      "get": {
+        "tags": [ "Gsm" ],
+        "summary": "Check balance situation for the sms",
+        "operationId": "checkBalance",
+        "parameters": [
+          { "in": "query", "name": "type", "required": true, "schema": { "type": "string", "default": "PACKAGE", "enum": ["PACKAGE", "CREDIT"] } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/gsm/list-headers": {
+      "get": {
+        "tags": [ "Gsm" ],
+        "summary": "List message headers for send sms",
+        "operationId": "listHeaders",
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
@@ -3639,6 +3702,14 @@
           "password": { "type": "string" }
         }
       },
+      "messages": {
+        "type": "object",
+        "required": [ "msg", "no" ],
+        "properties": {
+          "msg": { "type": "string", "example": "Hi there. This is just a test message!" },
+          "no": { "type": "string", "example": "5365056943" }
+        }
+      },
       "packageClient": {
         "type": "object",
         "required": [ "name", "phone", "city", "town", "address" ],
@@ -3768,6 +3839,15 @@
           "billingAddress": { "$ref": "#/components/schemas/billingAddress" },
           "basketItems": { "$ref": "#/components/schemas/basketItems" },
           "shipment": { "$ref": "#/components/schemas/shipment" }
+        }
+      },
+      "sendSms": {
+        "type": "object",
+        "required": [ "msgheader", "encoding", "messages" ],
+        "properties": {
+          "msgheader": { "type": "string", "example": "TEST" },
+          "encoding": { "type": "string", "example": "TR" },
+          "messages": {"type": "array", "items": { "$ref": "#/components/schemas/messages" } }
         }
       },
       "shipment": {
@@ -3947,7 +4027,8 @@
       }
     },
     "securitySchemes": {
-      "JWT": { "type": "apiKey", "name": "Authorization", "in": "header" }
+      "JWT": { "type": "apiKey", "name": "Authorization", "in": "header", "description": "Provide your token key in the 'Bearer <YOUR_TOKEN>' header" },
+      "X-API-KEY": { "type": "apiKey", "name": "x-api-key", "in": "header", "description": "Provide your api key in the 'x-api-key' header" }
     }
   }
 }
