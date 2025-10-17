@@ -3255,8 +3255,11 @@
       },
       "blog": {
         "type": "object",
-        "required": [ "name", "content" ],
+        "required": [ "type", "date", "timeZone", "name", "content" ],
         "properties": {
+          "type": { "type": "string", "example": "blog" },
+          "date": { "type": "string", "example": "2025-10-17T11:30:00.000Z" },
+          "timeZone": { "type": "string", "example": "Europe/Istanbul" },
           "name": { "type": "string", "example": "Ticaret ve E-ticaret Kavramları" },
           "content": { "type": "string", "example": "<p><b>Merhaba</b> bu bir test yazisidir.</p>" }
         }
