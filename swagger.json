@@ -1348,7 +1348,7 @@
       "get": {
         "tags": [ "Gsm" ],
         "summary": "List message headers for send sms",
-        "operationId": "listHeaders",
+        "operationId": "checkReport",
         "parameters": [
           { "in": "query", "name": "jobId", "required": true, "schema": { "type": "string" } }
         ],
@@ -3848,7 +3848,7 @@
         "type": "object",
         "required": [ "msgheader", "encoding", "messages" ],
         "properties": {
-          "msgheader": { "type": "string", "example": "TEST" },
+          "msgheader": { "type": "string", "example": "ERBIL.GUR" },
           "encoding": { "type": "string", "example": "TR" },
           "messages": {"type": "array", "items": { "$ref": "#/components/schemas/messages" } }
         }
