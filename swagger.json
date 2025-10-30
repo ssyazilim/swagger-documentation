@@ -31,7 +31,7 @@
     { "name": "Currency", "description": "Currencies for the system" },
     { "name": "External", "description": "External Services for the system" },
     { "name": "Form", "description": "Form process for users" },
-    { "name": "Google Cloud", "description": "Google cloud operations for the system" },
+    { "name": "Google", "description": "Google operations for the system" },
     { "name": "Gsm", "description": "GSM service operations for the system" },
     { "name": "Minio Bucket S3", "description": "Simple Storage Service for the bucket operations" },
     { "name": "Minio Object S3", "description": "Simple Storage Service for the object operations" },
@@ -41,6 +41,7 @@
     { "name": "Question", "description": "Questions for the product" },
     { "name": "Review", "description": "Reviews for the product" },
     { "name": "Shipping", "description": "Shipping calculations for the system" },
+    { "name": "Traffic", "description": "Web site analysis for users" },
     { "name": "Translation", "description": "Translations for the system" },
     { "name": "User", "description": "User process for users" }
 
@@ -1236,24 +1237,6 @@
         }
       }
     },
-    "/public/contact/subscribe": {
-      "post": {
-        "tags": [ "Form" ],
-        "summary": "Add your email to subscription list",
-        "operationId": "addMailToSubscription",
-        "requestBody": {
-          "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } },
-            "application/xml": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } },
-            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } }
-          }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        }
-      }
-    },
     "/admin/contact/check-smtp": {
       "post": {
         "tags": [ "Form" ],
@@ -1274,9 +1257,9 @@
       }
     },
 
-    "/public/google-cloud/google-translate": {
+    "/public/google/translate": {
       "post": {
-        "tags": [ "Google Cloud" ],
+        "tags": [ "Google" ],
         "summary": "Translate a prompt selected language",
         "operationId": "translatePrompt",
         "requestBody": {
@@ -1292,39 +1275,27 @@
         }
       }
     },
-    "/admin/google-cloud/analytics-live": {
-      "get": {
-        "tags": [ "Google Cloud" ],
-        "summary": "Get google analytics live stream",
-        "operationId": "getAnalyticsLive",
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-    "/admin/google-cloud/analytics-report": {
-      "get": {
-        "tags": [ "Google Cloud" ],
-        "summary": "Get google analytics data for the system",
-        "operationId": "getAnalyticsReport",
-        "parameters": [
-          { "in": "query", "name": "dimension", "required": true, "schema": { "type": "string", "example": "country" } },
-          { "in": "query", "name": "metric", "required": true, "schema": { "type": "string", "example": "activeUsers" } },
-          { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T00:00:00.000Z" } },
-          { "in": "query", "name": "endDate", "required": false, "schema": { "type": "boolean", "example": "2024-12-15T23:59:59.999Z" } }
-        ],
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-    "/admin/google-cloud/gemini-prompt": {
+    "/public/google/subscribe": {
       "post": {
-        "tags": [ "Google Cloud" ],
+        "tags": [ "Google" ],
+        "summary": "Add your email to subscription list",
+        "operationId": "addMailToSubscription",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/passwordResetUser" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/google/gemini-prompt": {
+      "post": {
+        "tags": [ "Google" ],
         "summary": "Send a prompt to Gemini AI",
         "operationId": "sendGeminiPrompt",
         "requestBody": {
@@ -2689,6 +2660,25 @@
       }
     },
 
+    "/public/traffic/analyze": {
+      "post": {
+        "tags": [ "Traffic" ],
+        "summary": "Analyze the web site traffic",
+        "operationId": "analyzeTraffic",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/analyze" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/analyze" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/analyze" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+
     "/public/translation/{locale}/{name}": {
       "get": {
         "tags": [ "Translation" ],
@@ -3101,12 +3091,9 @@
         "type": "object",
         "required": [ "name" ],
         "properties": {
-          "geoLocation": { "$ref": "#/components/schemas/externalGeoLocation" },
           "iyzico": { "$ref": "#/components/schemas/externalIyzico" },
-          "basitKargo": { "$ref": "#/components/schemas/externalBasitKargo" },
           "google": { "$ref": "#/components/schemas/externalGoogle" },
           "facebook": { "$ref": "#/components/schemas/externalFacebook" },
-          "countryStateCity": { "$ref": "#/components/schemas/externalCountryStateCity" },
           "tawkTo": { "$ref": "#/components/schemas/externalTawkTo" }
         }
       },
@@ -3239,6 +3226,15 @@
           "locale": { "type": "string", "example": "en" },
           "name": { "type": "string", "example": "Test" },
           "content": { "type": "string", "example": "<p>Test</p>" }
+        }
+      },
+      "analyze": {
+        "type": "object",
+        "required": [ "visitorId", "referrer", "device" ],
+        "properties": {
+          "visitorId": { "type": "string", "example": "478932" },
+          "referrer": { "type": "string", "example": "?srsltid=AfmBOoo0ByDscd-aEqKSqpEaAfb0XzuQAn2jJ3O27Yj5T6n2iADl6vjp" },
+          "device": { "type": "string", "example": "desktop" }
         }
       },
       "basketItems": {
@@ -3612,13 +3608,6 @@
           "name": { "type": "string", "example": "Mahmut" }
         }
       },
-      "externalGeoLocation": {
-        "type": "object",
-        "required": [ "apiKey" ],
-        "properties": {
-          "apiKey": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" }
-        }
-      },
       "externalIyzico": {
         "type": "object",
         "required": [ "lang", "url", "apiKey", "secretKey" ],
@@ -3627,14 +3616,6 @@
           "url": { "type": "string", "example": "https://sandbox-api.iyzipay.com" },
           "apiKey": { "type": "string", "example": "sandbox-84dede8f9e564a298f0c841693c91fd5" },
           "secretKey": { "type": "string", "example": "sandbox-84dede8f9e564a298f0c841693c91fd5" }
-        }
-      },
-      "externalBasitKargo": {
-        "type": "object",
-        "required": [ "url", "apiKey" ],
-        "properties": {
-          "url": { "type": "string", "example": "https://basitkargo.com" },
-          "apiKey": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" }
         }
       },
       "externalGoogle": {
@@ -3658,14 +3639,6 @@
           "clientId": { "type": "string", "example": "123456-abcdef123456.apps.facebookusercontent.com" },
           "clientSecret": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" },
           "callbackUrl": { "type": "string", "example": "https://www.facebook.com" }
-        }
-      },
-      "externalCountryStateCity": {
-        "type": "object",
-        "required": [ "url", "apiKey" ],
-        "properties": {
-          "url": { "type": "string", "example": "https://api.countrystatecity.in/v1/countries" },
-          "apiKey": { "type": "string", "example": "84dede8f9e564a298f0c841693c91fd5" }
         }
       },
       "externalTawkTo": {
