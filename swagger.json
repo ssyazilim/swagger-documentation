@@ -272,9 +272,9 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
-          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean", "example": false } }
+          { "in": "query", "name": "exclude", "required": false, "schema": { "type": "string", "example": "content,logs" } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
@@ -2333,8 +2333,7 @@
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
           { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
-          { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } },
-          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean", "example": false } }
+          { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
@@ -2506,8 +2505,7 @@
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
           { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
-          { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } },
-          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean", "example": false } }
+          { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
@@ -2687,8 +2685,28 @@
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
           { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
-          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T00:00:00.000Z" } },
+          { "in": "query", "name": "endDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T23:59:59.999Z" } }
         ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Traffic" ],
+        "summary": "Delete a customer traffic from the system",
+        "description": "",
+        "operationId": "deleteVisitor",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
@@ -2722,7 +2740,7 @@
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
           { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
-          { "in": "query", "name": "isAll", "required": false, "schema": { "type": "boolean", "example": false } }
+          { "in": "query", "name": "exclude", "required": false, "schema": { "type": "string", "example": "translations,logs" } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
@@ -3695,8 +3713,8 @@
       "images": {
         "type": "object",
         "properties": {
-          "staticImages": { "type": "array", "example": []  },
-          "dynamicImages": { "type": "array", "example": ["https://placehold.co/600x400/000000/FFF?text=Image+1,https://placehold.co/600x400/000000/FFF?text=Image+2"] }
+          "staticImages": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "image": { "type": "string" } } }, "example": []  },
+          "dynamicImages": { "type": "array", "items": { "type": "string" }, "example": ["https://placehold.co/600x400/000000/FFF?text=Image+1,https://placehold.co/600x400/000000/FFF?text=Image+2"] }
         }
       },
       "likeBlog": {
