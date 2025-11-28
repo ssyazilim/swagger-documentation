@@ -253,7 +253,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
         ],
         "responses": {
@@ -373,6 +373,17 @@
       }
     },
 
+    "/public/blogs/total": {
+      "get": {
+        "tags": [ "Blog" ],
+        "summary": "Get all blogs total count in the system",
+        "operationId": "getBlogTotal",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
     "/public/blogs": {
       "get": {
         "tags": [ "Blog" ],
@@ -381,8 +392,10 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
-          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "type", "required": false, "schema": { "type": "string", "example": "blog" } },
+          { "in": "query", "name": "exclude", "required": false, "schema": { "type": "string", "example": "comments" } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
@@ -527,7 +540,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
         ],
         "responses": {
@@ -762,7 +775,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T00:00:00.000Z" } },
           { "in": "query", "name": "endDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T23:59:59.999Z" } }
         ],
@@ -795,7 +808,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
         ],
         "responses": {
@@ -1911,7 +1924,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
           { "in": "query", "name": "startDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T00:00:00.000Z" } },
           { "in": "query", "name": "endDate", "required": false, "schema": { "type": "string", "example": "2024-12-15T23:59:59.999Z" } },
@@ -1951,7 +1964,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
           { "in": "query", "name": "category", "required": false, "schema": { "type": "string" } },
           { "in": "query", "name": "filters", "required": false, "schema": { "type": "string" } }
@@ -2138,7 +2151,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
         ],
         "responses": {
@@ -2243,7 +2256,7 @@
           { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } },
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
         ],
         "responses": {
@@ -2260,7 +2273,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
           { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } }
         ],
@@ -2331,7 +2344,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
           { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } }
         ],
@@ -2414,7 +2427,7 @@
           { "in": "path", "name": "productId", "required": true, "schema": { "type": "string" } },
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
 
         ],
@@ -2432,7 +2445,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
           { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } }
         ],
@@ -2503,7 +2516,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
           { "in": "query", "name": "status", "required": false, "schema": { "type": "string", "default": "pending", "enum": ["pending", "approved", "rejected"] } }
         ],
@@ -2738,7 +2751,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
           { "in": "query", "name": "exclude", "required": false, "schema": { "type": "string", "example": "translations,logs" } }
         ],
@@ -2897,7 +2910,7 @@
         "parameters": [
           { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
           { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": false, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
           { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } }
         ],
         "responses": {
