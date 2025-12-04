@@ -11,17 +11,17 @@
   "externalDocs": { "description": "Find out more about Swagger", "url": "https://swagger.io" },
   "servers": [
     { "url": "http://localhost:5000/api" },
+    { "url": "https://api.07kardeslertarim.com/api" },
+    { "url": "https://api.bastakshop.com/api" },
+    { "url": "https://api.chemb2b.com.tr/api" },
     { "url": "https://api.opiaheart.com/api" },
     { "url": "https://api.sagmanhurda.com/api" },
-    { "url": "https://api.chemb2b.com.tr/api" },
-    { "url": "https://api.07kardeslertarim.com/api" },
     { "url": "https://api.ulusanelektrik.com/api" }
   ],
   "tags": [
     { "name": "Authentication", "description": "API authentications process for users" },
     { "name": "Address", "description": "Addresses for the system" },
     { "name": "Agreement",  "description": "User agreements for the system" },
-    { "name": "Blog", "description": "Blogs for the system" },
     { "name": "Brand", "description": "Brands for the system" },
     { "name": "Card", "description": "User card information" },
     { "name": "Cart", "description": "Carts for the system" },
@@ -36,6 +36,7 @@
     { "name": "Minio Bucket S3", "description": "Simple Storage Service for the bucket operations" },
     { "name": "Minio Object S3", "description": "Simple Storage Service for the object operations" },
     { "name": "Payment", "description": "User payment information" },
+    { "name": "Post", "description": "Posts for the system" },
     { "name": "Product", "description": "Products for the system" },
     { "name": "Product Variant", "description": "Variants for the products" },
     { "name": "Question", "description": "Questions for the product" },
@@ -363,165 +364,6 @@
             "application/json": { "schema": { "$ref": "#/components/schemas/updateAgreement" } },
             "application/xml": { "schema": { "$ref": "#/components/schemas/updateAgreement" } },
             "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/updateAgreement" } }
-          }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-
-    "/public/blogs/total": {
-      "get": {
-        "tags": [ "Blog" ],
-        "summary": "Get all blogs total count in the system",
-        "operationId": "getBlogTotal",
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        }
-      }
-    },
-    "/public/blogs": {
-      "get": {
-        "tags": [ "Blog" ],
-        "summary": "Get all blogs in the system",
-        "operationId": "getBlogs",
-        "parameters": [
-          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
-          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
-          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
-          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
-          { "in": "query", "name": "type", "required": false, "schema": { "type": "string", "example": "blog" } },
-          { "in": "query", "name": "exclude", "required": false, "schema": { "type": "string", "example": "comments" } }
-        ],
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        }
-      }
-    },
-    "/public/blog/{blogId}": {
-      "get": {
-        "tags": [ "Blog" ],
-        "summary": "Get a blog from the system",
-        "operationId": "getBlog",
-        "parameters": [ { "in": "path", "name": "blogId", "required": true, "schema": { "type": "string" } }],
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        }
-      }
-    },
-    "/public/blog/{blogId}/like": {
-      "post": {
-        "tags": ["Blog"],
-        "summary": "Add a like or dislike to blog in the system",
-        "operationId": "likeBlogs",
-        "parameters": [ { "in": "path", "name": "blogId", "required": true, "schema": { "type": "string" } }],
-        "requestBody": {
-          "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/likeBlog" } },
-            "application/xml": { "schema": { "$ref": "#/components/schemas/likeBlog" } },
-            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/likeBlog" } }
-          }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-    "/public/blog/{blogId}/comment": {
-      "post": {
-        "tags": ["Blog"],
-        "summary": "Add a comment to blog in the system",
-        "operationId": "commentBlogs",
-        "parameters": [ { "in": "path", "name": "blogId", "required": true, "schema": { "type": "string" } }],
-        "requestBody": {
-          "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/commentBlog" } },
-            "application/xml": { "schema": { "$ref": "#/components/schemas/commentBlog" } },
-            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/commentBlog" } }
-          }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-    "/admin/blogs": {
-      "post": {
-        "tags": [ "Blog" ],
-        "summary": "Add a new blogs to system (JSON or CSV)",
-        "operationId": "addBlogs",
-        "requestBody": {
-          "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/addBlogs" } },
-            "application/xml": { "schema": { "$ref": "#/components/schemas/addBlogs" } },
-            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addBlogs" } }
-          }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-    "/admin/blog": {
-      "post": {
-        "tags": [ "Blog" ],
-        "summary": "Add a new blog to system",
-        "operationId": "addBlog",
-        "requestBody": {
-          "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/blog" } },
-            "application/xml": { "schema": { "$ref": "#/components/schemas/blog" } },
-            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/blog" } }
-          }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      },
-      "delete": {
-        "tags": [ "Blog" ],
-        "summary": "Delete a blog or blogs in the system",
-        "description": "",
-        "operationId": "deleteBlogs",
-        "requestBody": {
-          "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
-            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
-            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
-          }
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      }
-    },
-    "/api/admin/blog/{blogId}": {
-      "patch": {
-        "tags": [ "Blog" ],
-        "summary": "Update a blog from the system",
-        "operationId": "updateBlog",
-        "parameters": [ { "in": "path", "name": "blogId", "required": true, "schema": { "type": "string" } }],
-        "requestBody": {
-          "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/blog" } },
-            "application/xml": { "schema": { "$ref": "#/components/schemas/blog" } },
-            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/blog" } }
           }
         },
         "responses": {
@@ -1956,6 +1798,165 @@
       }
     },
 
+    "/public/posts/total": {
+      "get": {
+        "tags": [ "Post" ],
+        "summary": "Get all posts total count in the system",
+        "operationId": "getPostTotal",
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/posts": {
+      "get": {
+        "tags": [ "Post" ],
+        "summary": "Get all posts in the system",
+        "operationId": "getPosts",
+        "parameters": [
+          { "in": "query", "name": "page", "required": false, "schema": { "type": "integer", "example": 1 } },
+          { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer", "example": 10 } },
+          { "in": "query", "name": "sort", "required": true, "schema": { "type": "string", "example": "updatedAt,desc" } },
+          { "in": "query", "name": "text", "required": false, "schema": { "type": "string" } },
+          { "in": "query", "name": "type", "required": false, "schema": { "type": "string", "example": "blog" } },
+          { "in": "query", "name": "exclude", "required": false, "schema": { "type": "string", "example": "comments" } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/post/{postId}": {
+      "get": {
+        "tags": [ "Post" ],
+        "summary": "Get a post from the system",
+        "operationId": "getPost",
+        "parameters": [ { "in": "path", "name": "postId", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/public/post/{postId}/like": {
+      "post": {
+        "tags": ["Post"],
+        "summary": "Add a like or dislike to post in the system",
+        "operationId": "likePosts",
+        "parameters": [ { "in": "path", "name": "postId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/likePost" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/likePost" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/likePost" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/public/post/{postId}/comment": {
+      "post": {
+        "tags": ["Post"],
+        "summary": "Add a comment to post in the system",
+        "operationId": "commentBlogs",
+        "parameters": [ { "in": "path", "name": "postId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/commentPost" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/commentPost" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/commentPost" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/posts": {
+      "post": {
+        "tags": [ "Post" ],
+        "summary": "Add a new posts to system (JSON or CSV)",
+        "operationId": "addPosts",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/addPosts" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/addPosts" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/addPosts" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/post": {
+      "post": {
+        "tags": [ "Post" ],
+        "summary": "Add a new post to system",
+        "operationId": "addPost",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/post" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/post" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/post" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      },
+      "delete": {
+        "tags": [ "Post" ],
+        "summary": "Delete a post or posts in the system",
+        "description": "",
+        "operationId": "deletePosts",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/deleteModel" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/deleteModel" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+    "/admin/post/{postId}": {
+      "patch": {
+        "tags": [ "Post" ],
+        "summary": "Update a post from the system",
+        "operationId": "updatePost",
+        "parameters": [ { "in": "path", "name": "postId", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/post" } },
+            "application/xml": { "schema": { "$ref": "#/components/schemas/post" } },
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/post" } }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        },
+        "security": [ { "JWT": [] } ]
+      }
+    },
+
     "/public/products": {
       "get": {
         "tags": [ "Product" ],
@@ -3027,7 +3028,6 @@
         }
       },
       "addAgreements": { "type": "array", "items": { "$ref": "#/components/schemas/agreement" } },
-      "addBlogs": { "type": "array", "items": { "$ref": "#/components/schemas/blog" } },
       "addBrands": { "type": "array", "items": { "$ref": "#/components/schemas/brand" } },
       "addBucketConfig": {
         "type": "object",
@@ -3192,6 +3192,7 @@
           "shipment": { "$ref": "#/components/schemas/shipment" }
         }
       },
+      "addPosts": { "type": "array", "items": { "$ref": "#/components/schemas/post" } },
       "addProducts": {
         "type": "array",
         "items": {
@@ -3215,7 +3216,7 @@
         "type": "object",
         "required": [ "status", "question" ],
         "properties": {
-          "status": { "type": "number", "example": 0 },
+          "status": { "type": "string", "example": "pending" },
           "question": { "type": "string", "example": "Çoraplarınızda kullanılan kumaş türleri nelerdir?" }
         }
       },
@@ -3223,7 +3224,7 @@
         "type": "object",
         "required": [ "rating", "content", "status" ],
         "properties": {
-          "status": { "type": "number", "example": 0 },
+          "status": { "type": "string", "example": "pending" },
           "rating": { "type": "number", "example": 5 },
           "content": { "type": "string", "example": "Harika bir ürün. Kesinlikle tavsiye ederim." }
         }
@@ -3315,17 +3316,6 @@
           "zipCode": { "type": "string", "example": "07030" }
         }
       },
-      "blog": {
-        "type": "object",
-        "required": [ "type", "date", "timeZone", "name", "content" ],
-        "properties": {
-          "type": { "type": "string", "example": "blog" },
-          "date": { "type": "string", "example": "2025-10-17T11:30:00.000Z" },
-          "timeZone": { "type": "string", "example": "Europe/Istanbul" },
-          "name": { "type": "string", "example": "Ticaret ve E-ticaret Kavramları" },
-          "content": { "type": "string", "example": "<p><b>Merhaba</b> bu bir test yazisidir.</p>" }
-        }
-      },
       "buyer": {
         "type": "object",
         "required": [ "email", "identityNumber", "registrationAddress", "country", "city" ],
@@ -3358,7 +3348,7 @@
         "properties": {
           "name": { "type": "string" },
           "parent": { "type": "string" },
-          "tree": { "type": "array", "items": { "type": "string", "example": [ "root" ] } },
+          "tree": { "type": "array", "items": { "type": "string" }, "example": [ "root" ] },
 		      "categoryI10n": { "type": "string", "example": "{'id':'543586','name':'543586 - Kıyafet ve Aksesuarlar > Kıyafet Aksesuarları > Bandanalar ve Eşarplar > Bandana Örtüleri'}" }
         }
       },
@@ -3419,7 +3409,7 @@
           }
         }
       },
-      "commentBlog": {
+      "commentPost": {
         "type": "object",
         "properties": {
           "name": { "type": "string" },
@@ -3635,7 +3625,7 @@
         "required": [ "bucketName", "objectNames" ],
         "properties": {
           "bucketName": { "type": "string", "example": "test" },
-          "objectNames": { "type": "array", "items": { "type": "string", "example": ["1.jpg", "2.jpg", "3.jpg"] } }
+          "objectNames": { "type": "array", "items": { "type": "string" }, "example": ["1.jpg", "2.jpg", "3.jpg"] }
         }
       },
       "deleteUser": {
@@ -3730,7 +3720,7 @@
           "dynamicImages": { "type": "array", "items": { "type": "string" }, "example": ["https://placehold.co/600x400/000000/FFF?text=Image+1,https://placehold.co/600x400/000000/FFF?text=Image+2"] }
         }
       },
-      "likeBlog": {
+      "likePost": {
         "type": "object",
         "properties": {
           "vote": { "type": "boolean" }
@@ -3813,6 +3803,17 @@
           "cvc": { "type": "string", "example": "704" },
           "installment": { "type": "number", "example": 1 },
           "registerCard": { "type": "number", "example": 0 }
+        }
+      },
+      "post": {
+        "type": "object",
+        "required": [ "type", "date", "timeZone", "name", "content" ],
+        "properties": {
+          "type": { "type": "string", "example": "blog" },
+          "date": { "type": "array", "items": { "type": "string" }, "example": ["2025-12-04T06:00:00.000Z", "2025-12-11T09:00:00.000Z"] },
+          "timeZone": { "type": "string", "example": "Cankaya/Ankara/Turkey" },
+          "name": { "type": "string", "example": "Ticaret ve E-ticaret Kavramları" },
+          "content": { "type": "string", "example": "<p><b>Merhaba</b> bu bir test yazisidir.</p>" }
         }
       },
       "presignedUrl": {
@@ -4002,7 +4003,7 @@
         "type": "object",
         "required": [ "status", "question", "answer" ],
         "properties": {
-          "status": { "type": "number", "example": 0 },
+          "status": { "type": "string", "example": "approved" },
           "question": { "type": "string", "example": "Çoraplarınızda kullanılan kumaş türleri nelerdir?" },
           "answer": { "type": "string", "example": "Pamuk, yün ve akrilik kullandık." }
         }
@@ -4048,7 +4049,7 @@
           "required": [ "name", "variants" ],
           "properties": {
             "name": { "type": "string", "example": "Renk" },
-            "variants": { "type": "array", "items": { "type": "string", "example": [ "Siyah" ] } }
+            "variants": { "type": "array", "items": { "type": "string" }, "example": [ "Siyah" ] }
           }
         }
       },
