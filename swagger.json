@@ -2729,14 +2729,13 @@
       }
     },
 
-    "/public/translation/{locale}/{name}": {
+    "/public/translation/{locale}": {
       "get": {
         "tags": [ "Translation" ],
         "summary": "Get a translation from the system",
         "operationId": "getTranslation",
         "parameters": [
-          { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "tr", "enum": ["en", "tr"] } },
-          { "in": "path", "name": "name", "required": true, "schema": { "type": "string" } }
+          { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "en-US", "enum": ["en-US", "tr-TR"] } }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
