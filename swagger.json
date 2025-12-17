@@ -2729,21 +2729,7 @@
       }
     },
 
-    "/public/translation/{locale}": {
-      "get": {
-        "tags": [ "Translation" ],
-        "summary": "Get a translation from the system",
-        "operationId": "getTranslation",
-        "parameters": [
-          { "in": "path", "name": "locale", "required": true, "schema": { "type": "string", "default": "en-US", "enum": ["en-US", "tr-TR"] } }
-        ],
-        "responses": {
-          "200": { "$ref": "#/components/responses/200" },
-          "400": { "$ref": "#/components/responses/400" }
-        }
-      }
-    },
-    "/admin/translations": {
+    "/public/translations": {
       "get": {
         "tags": [ "Translation" ],
         "summary": "Get all translations in the system",
@@ -2758,9 +2744,24 @@
         "responses": {
           "200": { "$ref": "#/components/responses/200" },
           "400": { "$ref": "#/components/responses/400" }
-        },
-        "security": [ { "JWT": [] } ]
-      },
+        }
+      }
+    },
+    "/public/translation/{code}": {
+      "get": {
+        "tags": [ "Translation" ],
+        "summary": "Get a translation from the system",
+        "operationId": "getTranslation",
+        "parameters": [
+          { "in": "path", "name": "code", "required": true, "schema": { "type": "string", "default": "en", "enum": ["en", "tr"] } }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/admin/translations": {
       "post": {
         "tags": [ "Translation" ],
         "summary": "Add a new translations to system (JSON or CSV)",
